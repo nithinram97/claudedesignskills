@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="420" viewBox="0 0 400 420"><defs>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+ <stop offset="0" stop-color="#05080C"/><stop offset="0.75" stop-color="#14222F"/><stop offset="1" stop-color="#1B2C3D"/></linearGradient>
+<linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+ <stop offset="0" stop-color="#0E1823"/><stop offset="1" stop-color="#05090D"/></linearGradient>
+<radialGradient id="body" cx="0.38" cy="0.32" r="0.75">
+ <stop offset="0" stop-color="#6D8BA8"/><stop offset="0.55" stop-color="#4A6884"/><stop offset="1" stop-color="#22374A"/></radialGradient>
+<radialGradient id="bodyGlow" cx="0.4" cy="0.35" r="0.75">
+ <stop offset="0" stop-color="#FFFFFF"/><stop offset="0.6" stop-color="#E4EEF7"/><stop offset="1" stop-color="#A9C2D9"/></radialGradient>
+<radialGradient id="amberGlow"><stop offset="0" stop-color="#F5B942" stop-opacity="0.9"/>
+ <stop offset="0.35" stop-color="#F5B942" stop-opacity="0.35"/><stop offset="1" stop-color="#F5B942" stop-opacity="0"/></radialGradient>
+<radialGradient id="iceGlow"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0.95"/>
+ <stop offset="0.3" stop-color="#CFE3F5" stop-opacity="0.45"/><stop offset="1" stop-color="#CFE3F5" stop-opacity="0"/></radialGradient>
+<linearGradient id="bar" x1="0" y1="1" x2="0" y2="0">
+ <stop offset="0" stop-color="#0D1620"/><stop offset="1" stop-color="#5FA8E8"/></linearGradient>
+<linearGradient id="barA" x1="0" y1="1" x2="0" y2="0">
+ <stop offset="0" stop-color="#2A1F0E"/><stop offset="1" stop-color="#F5B942"/></linearGradient>
+</defs><g transform="rotate(0 200 230)"><line x1="170.0" y1="310.0" x2="158.0" y2="375.0" stroke="#2F4356" stroke-width="20.0" stroke-linecap="round"/><ellipse cx="155.0" cy="383.0" rx="27.0" ry="14.000000000000002" fill="#2F4356"/><line x1="230.0" y1="310.0" x2="242.0" y2="375.0" stroke="#2F4356" stroke-width="20.0" stroke-linecap="round"/><ellipse cx="245.0" cy="383.0" rx="27.0" ry="14.000000000000002" fill="#2F4356"/><path d="M 230.0 145.0 Q 238.0 100.0 275.0 80.0" fill="none" stroke="#F5B942" stroke-width="7.5" stroke-linecap="round"/><circle cx="278.0" cy="77.0" r="56.00000000000001" fill="url(#amberGlow)"/><circle cx="278.0" cy="77.0" r="14.000000000000002" fill="#F5B942"/><ellipse cx="200" cy="230" rx="100" ry="100.0" fill="url(#body)"/><path d="M 138.0 302.0 A 100 100 0 0 0 285.0 280.0" fill="none" stroke="#7FC4FF" stroke-width="5.0" opacity="0.55"/><ellipse cx="162.0" cy="218.0" rx="31.86" ry="36.58" fill="#F4F7FA"/><ellipse cx="162.0" cy="228.0" rx="9.92" ry="11.78" fill="#0B1118"/><circle cx="165.72" cy="223.04" r="3.41" fill="#FFFFFF"/><circle cx="158.9" cy="232.34" r="1.55" fill="#FFFFFF"/><ellipse cx="238.0" cy="218.0" rx="31.86" ry="36.58" fill="#F4F7FA"/><ellipse cx="238.0" cy="228.0" rx="9.92" ry="11.78" fill="#0B1118"/><circle cx="241.72" cy="223.04" r="3.41" fill="#FFFFFF"/><circle cx="234.9" cy="232.34" r="1.55" fill="#FFFFFF"/><ellipse cx="136.0" cy="250.0" rx="14.000000000000002" ry="7.000000000000001" fill="#F28B82" opacity="0.65"/><ellipse cx="264.0" cy="250.0" rx="14.000000000000002" ry="7.000000000000001" fill="#F28B82" opacity="0.65"/><path d="M 182.0 263.0 q 6.0 -7.000000000000001 12.0 0 t 12.0 0 t 12.0 0" fill="none" stroke="#0B1118" stroke-width="5.0" stroke-linecap="round"/><path d="M 105.0 175.0 q -8.0 16.0 0 20.0 q 8.0 -4.0 0 -20.0" fill="#9FD0FF"/><path d="M 300.0 195.0 q -6.0 12.0 0 15.0 q 6.0 -3.0 0 -15.0" fill="#9FD0FF"/></g></svg>

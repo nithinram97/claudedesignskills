@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160.8" height="193.8" viewBox="-10.4 -10.4 160.8 193.8" role="img" aria-label="Clairvoyant mark, simplified">
+<title>Clairvoyant mark, simplified</title>
+<g transform="translate(-126 -51)">
+<path d="M236 84 A56 56 0 1 0 236 146" fill="none" stroke="#2F4356" stroke-width="16"/>
+<path d="M211 118 L254 100" fill="none" stroke="#E8A33D" stroke-width="7" stroke-linecap="round"/>
+<circle cx="258" cy="98" r="8" fill="#E8A33D"/>
+<path d="M148 168 L190 210 L232 168" fill="none" stroke="#2F4356" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+<line x1="158" y1="219" x2="222" y2="219" stroke="#2F4356" stroke-width="9" stroke-linecap="round"/>
+</g>
+</svg>
