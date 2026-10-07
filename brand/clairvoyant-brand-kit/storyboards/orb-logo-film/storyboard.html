@@ -118,18 +118,18 @@ header { display: grid; gap: 14px; }
   <header>
     <span class="eyebrow">Clairvoyant · logo film · keyframe storyboard</span>
     <h1>Orb chases the spark</h1>
-    <p>Orb's antenna spark pops off and flies away, drawing a rising line chart. Orb chases it up the bars. At the top, the spark is out of reach, so Orb takes a leap of faith and catches it. The spark doesn't stop: it yanks him round in a full loop over the chart, and the loop they draw becomes the logo's crystal-ball C. They slingshot out through the gap, Orb lands on the groundline, and the title comes in.</p>
+    <p>Orb's antenna spark pops off and flies away, drawing a rising line chart. Orb chases it up the bars. At the top, the spark hovers just past the tip of the line, out of reach. Orb takes a leap of faith, catches it, and merges into the tip: he becomes the logo's breakout point. The camera pulls back, the C draws round the chart, the stand rises, and the title comes in.</p>
     <div class="meta">
-      <span class="chip">15 s</span><span class="chip">30 fps · 450 frames</span><span class="chip">16:9</span><span class="chip">12 keyframes</span><span class="chip">brand kit used for mascot, colours, type and logo shapes only</span>
+      <span class="chip">14.3 s</span><span class="chip">30 fps · 430 frames</span><span class="chip">16:9</span><span class="chip">12 keyframes</span><span class="chip">brand kit used for mascot, colours, type and logo shapes only</span>
     </div>
   </header>
 
   <section class="section">
     <div class="head"><span class="eyebrow">The idea</span><h2>Why this climax works</h2></div>
     <div class="idea">
-      <div><h3>The chase draws the logo</h3><p>The rising line is the chart inside the ball. The loop Orb is dragged through is the C. The gap is where they burst out. No morph or magic transition is needed: the action leaves the mark behind.</p></div>
+      <div><h3>The chase draws the logo</h3><p>The rising line is the chart inside the ball, and the spark's trail is the breakout line. When Orb merges into the tip, he becomes the one point the whole logo is pointing at.</p></div>
       <div><h3>Orb earns it</h3><p>He falls short once, then psychs himself up and jumps into empty space. The climax is a choice he makes, which suits a mascot who is curious, a bit gormless and brave.</p></div>
-      <div><h3>The payoff is fun</h3><p>Catching the spark isn't the end; it's the start of the ride. The loop-the-loop is the biggest, silliest moment, and it happens right before the title, so the film ends on energy.</p></div>
+      <div><h3>The payoff is the mark</h3><p>Catching the spark completes him, and merging puts him exactly where the data is going. Everything after that is the logo assembling around him: the C, the stand, the wordmark.</p></div>
     </div>
   </section>
 
@@ -151,15 +151,15 @@ header { display: grid; gap: 14px; }
   </section>
 
   <section class="section">
-    <div class="head"><span class="eyebrow">If the loop doesn't land</span><h2>Two other endings</h2>
+    <div class="head"><span class="eyebrow">If the merge doesn't land</span><h2>Two other endings</h2>
       <p>Both reuse panels 1–7 and only change what happens after the leap.</p></div>
     <div class="alts">
       <div class="alt"><h3>Through his eye</h3>
         <p>Orb misses the catch and drops back onto the top bar, defeated. He looks up, and the camera pushes into his eye. Reflected in it is the whole chase, curved by the lens into the C, with the spark at the gap. Pull out: his eye has become the logo.</p>
         <p class="why">Quieter and more clever. Puts "clairvoyant" in his eye. Loses the big action beat.</p></div>
-      <div class="alt"><h3>He holds it up</h3>
-        <p>Orb catches the spark but falls with it, and lands under the chart. He braces and pushes the whole chart up over his head. His legs splay into the V and his feet into the groundline. Then he steps out and the mark stays standing.</p>
-        <p class="why">Funny and heroic, and explains the V stand. Puts him very close to the mark, so the step-out must be clean.</p></div>
+      <div class="alt"><h3>The loop</h3>
+        <p>The spark doesn't stop when he catches it. It drags him round a full loop over the chart, and their trail becomes the C. He's flung out of the gap and lands beside the stand.</p>
+        <p class="why">The biggest, silliest action beat. Orb survives the film, but the C is drawn by him rather than becoming him.</p></div>
     </div>
   </section>
 
@@ -168,18 +168,18 @@ header { display: grid; gap: 14px; }
     <div class="handoff">
       <div><h3>Physics</h3><ul>
         <li>Hops are parabolas at constant horizontal speed, with a crouch before and a squash after.</li>
-        <li>In the loop the spark leads and Orb trails on a stretched antenna. Stretch the stalk most at the bottom of the loop, where the pull is strongest.</li>
-        <li>Orb's body spins with the loop so the antenna always points along the path.</li>
+        <li>The leap ends with his antenna tip exactly on the spark, so the catch needs no snap or cheat.</li>
+        <li>In the merge his body centre slides into the point as he shrinks; his feet never leave the air.</li>
       </ul></div>
       <div><h3>Colour logic</h3><ul>
-        <li>Amber is the data: the spark, the rising line, the breakout. The loop trail is ice white, because it becomes the white C.</li>
+        <li>Amber is the data: the spark, the rising line, the breakout. Orb turns white as he merges, then the point flashes amber.</li>
         <li>The chart line only goes up. Bars shift from data-blue to brand white as the ring settles; the last bar stays amber.</li>
-        <li>End on the official lockup, untouched. Orb leaves the frame before the wordmark lands.</li>
+        <li>End on the official lockup, untouched. Orb is gone by then: he is the point.</li>
       </ul></div>
       <div><h3>Sound</h3><ul>
         <li>A marimba note per bar landing, climbing the scale.</li>
         <li>Leap: everything drops out but a breath. Catch: a bright "click".</li>
-        <li>Loop: a rising whoosh with Orb's "wheee" at the top; the slingshot is a rubber-band twang. Title: one warm chord.</li>
+        <li>Merge: a soft rising "shoop" into a warm ping. Reveal: a big riser. Title: one warm chord.</li>
       </ul></div>
     </div>
   </section>
@@ -222,6 +222,7 @@ const spark = (x, y, r = 7) => `<circle cx="${x}" cy="${y}" r="${r}" fill="url(#
 const arc = (a, b, h) => `<path d="M${a[0]} ${a[1]} Q${(a[0] + b[0]) / 2} ${Math.min(a[1], b[1]) - h * 2} ${b[0]} ${b[1]}" fill="none" stroke="#93A6B8" stroke-width="0.45" stroke-dasharray="1 1.2"/>`;
 const speed = (x, y, len = 8, ang = 180) => { const a = ang * Math.PI / 180, c = Math.cos(a), s = Math.sin(a), nx = -s, ny = c;
   return [-1, 0, 1].map((k, i) => `<line x1="${x + c * 2 + nx * k * 2}" y1="${y + s * 2 + ny * k * 2}" x2="${x + c * (len - i * 2) + nx * k * 2}" y2="${y + s * (len - i * 2) + ny * k * 2}" stroke="#CFE3F5" stroke-width="0.4" stroke-linecap="round" opacity="0.75"/>`).join(''); };
+const arrow = (x1, y1, x2, y2) => `<path d="M${x1} ${y1} L${x2} ${y2}" stroke="#CFE3F5" stroke-width="0.4" stroke-dasharray="1 1"/>`;
 const star = (x, y, r, c = '#FFFFFF') => `<path d="M${x} ${y - r} Q${x} ${y} ${x + r} ${y} Q${x} ${y} ${x} ${y + r} Q${x} ${y} ${x - r} ${y} Q${x} ${y} ${x} ${y - r}Z" fill="${c}"/>`;
 const label = (x, y, t, size = 3, c = '#93A6B8') => `<text x="${x}" y="${y}" fill="${c}" style="font-family:'IBM Plex Mono',monospace;font-size:${size}px;font-style:italic">${t}</text>`;
 // partial C ring, drawn from the gap's top end over the top (t = 0..1)
@@ -314,9 +315,8 @@ const cast = [
   ['Spark gone', 'stunned, "o" mouth', { antenna: 'gone', eyes: 'wide', mouth: 'o', look: [0.6, -0.8] }],
   ['Psych up', 'brows down, crouch', { antenna: 'gone', brows: 'determined', mouth: 'flat', legs: 'crouch', sy: 0.9 }],
   ['Strain', 'mid-leap, eyes wide', { eyes: 'wide', mouth: 'o', legs: 'tuck', antenna: 'gone', brows: 'worried' }],
-  ['Thrill', 'riding the loop', { eyes: 'wide', mouth: 'grin', legs: 'splay', stretch: 1.3 }],
-  ['Dizzy', 'after the slingshot', { eyes: 'dizzy', mouth: 'wavy', antenna: 'bud' }],
-  ['Proud', 'grin, cheeks glow', { eyes: 'happy', mouth: 'grin' }],
+  ['Joy', 'caught it: grin, cheeks glow', { eyes: 'happy', mouth: 'grin', legs: 'tuck' }],
+  ['Merging', 'glows white, happy eyes', { glow: true, eyes: 'happy', mouth: 'smile' }],
 ];
 document.getElementById('cast').innerHTML = cast.map(([n, c, o]) =>
   `<figure><svg class="screen" viewBox="0 0 100 100" role="img" aria-label="Orb ${n}"><rect width="100" height="100" fill="url(#sky)"/>${orb(50, 90, { ...o, scale: 4 })}</svg><figcaption><b>${n}</b>${c}</figcaption></figure>`).join('');
@@ -326,12 +326,7 @@ const START = [154.3, 132.4];             // antenna tip of Orb standing at x 15
 const LINE = [START, ...TOPS];
 const FULL = [...LINE, POINT];
 
-// panel 8: the catch, just past the point
-const [catchOrb, catchTip] = orbAt(262, 88, { eyes: 'wide', mouth: 'grin', legs: 'tuck', rot: 30, stretch: 1.15, brows: 'worried' });
-// panel 9: mid-loop, left side of the ring, heading down
-const [loopOrb, loopTip] = orbAt(...onRing(-178), { eyes: 'wide', mouth: 'grin', legs: 'splay', rot: 161, stretch: 1.5, scale: 1.25 });
-// panel 10: flung out of the gap, tumbling
-const [flingOrb] = orbAt(252, 176, { eyes: 'wide', mouth: 'o', legs: 'splay', rot: 125, scale: 1.3, antenna: 'bud' });
+const HOVER = [261.6, 83.4];              // the spark waits just past the tip of the line
 
 const F = [
   { n: 1, act: 'Setup', f: [1, 30], title: 'Idle',
@@ -360,69 +355,67 @@ const F = [
     action: 'Orb hops bar to bar like stairs, gaining on the spark with every jump.',
     anim: 'Parabolic hops, 14 frames each. Crouch 4f → strain → brace → 2-frame squash on landing.',
     sound: 'A marimba note per landing, climbing the scale.' },
-  { n: 5, act: 'Turn', f: [151, 186], title: 'Out of reach',
-    art: cam(3, 232, 98, stage() + bars() + trail(FULL, 1, true) + spark(266, 82) +
+  { n: 5, act: 'Turn', f: [151, 203], title: 'Out of reach',
+    art: cam(3, 236, 98, stage() + bars() + trail(FULL, 1) + spark(...HOVER) +
       arc([212, 106], [215, 106], 6) + orb(213.5, 94, { ghost: true }) + label(200, 86, 'short by a body', 2.6) +
       orb(213, 106, { antenna: 'gone', eyes: 'wide', mouth: 'o', look: [0.9, -1], sx: 1.14, sy: 0.86 })),
     shot: 'Medium; low angle up the amber bar.',
-    action: 'The spark draws the steep last stretch of the line, leaves a glowing dot where it ends, and hovers just beyond. Orb jumps for it from the top bar and falls short.',
+    action: 'The spark draws the steep last stretch of the line and hovers just past its tip, bobbing. Orb jumps for it from the top bar and falls short.',
     anim: 'Straight-up jump, 16 frames, 3-frame hang at the apex, heavy squash on landing. The spark bobs, teasing.',
     sound: 'Jump "boing", then a deflating "wah".' },
-  { n: 6, act: 'Turn', f: [187, 216], title: 'Psych up',
-    art: cam(3.2, 234, 96, stage() + bars() + trail(FULL, 1, true) + spark(278, 76) + speed(278, 76, 7, 200) +
-      orb(213, 106, { antenna: 'gone', brows: 'determined', mouth: 'flat', legs: 'crouch', sx: 1.12, sy: 0.84, look: [1, -0.8] }) +
-      label(252, 72, 'drifting away', 2.6)),
+  { n: 6, act: 'Turn', f: [204, 224], title: 'Psych up',
+    art: cam(3.2, 236, 96, stage() + bars() + trail(FULL, 1) + spark(...HOVER) +
+      orb(213, 106, { antenna: 'gone', brows: 'determined', mouth: 'flat', legs: 'crouch', sx: 1.12, sy: 0.84, look: [1, -0.8] })),
     shot: 'Medium close on Orb; the spark soft in the background.',
-    action: 'The spark starts drifting off into empty space. Orb backs up to the edge of the bar, squints, brows down, and crouches.',
-    anim: 'Two steps back, 6 frames each. Deep crouch over 10 frames, a held breath, a tiny shiver.',
+    action: 'Orb looks back up at the spark. He rocks back, squints, brows down, and crouches.',
+    anim: 'Rock back 10°, a held breath, a tiny shiver, then the deepest crouch of the film.',
     sound: 'Music thins to one held note.' },
-  { n: 7, act: 'Climax', f: [217, 240], title: 'Leap of faith', big: true,
-    art: cam(3, 240, 94, stage(0.7) + bars() + trail(FULL, 1, true) + spark(276, 78) +
-      `<path d="M211 106 Q240 62 272 82" fill="none" stroke="#93A6B8" stroke-width="0.45" stroke-dasharray="1 1.2"/>` +
-      orb(211, 106, { ghost: true }) + orb(240, 86, { antenna: 'gone', eyes: 'wide', mouth: 'o', brows: 'worried', legs: 'tuck', rot: 25 }) + speed(233, 92, 8, 160)),
-    shot: 'Side-on, slow motion; the camera rises with the arc.',
-    action: 'Orb launches off the top bar into empty space, way past the end of the chart.',
-    anim: 'One long parabola, 22 frames, at half speed in the middle. Body stretched on take-off, then tucked.',
+  { n: 7, act: 'Climax', f: [225, 240], title: 'Leap of faith', big: true,
+    art: cam(3, 240, 94, stage(0.7) + bars() + trail(FULL, 1) + spark(...HOVER) +
+      `<path d="M211 106 Q236 72 257.1 101.4" fill="none" stroke="#93A6B8" stroke-width="0.45" stroke-dasharray="1 1.2"/>` +
+      orb(211, 106, { ghost: true }) + orb(238, 92, { antenna: 'gone', eyes: 'wide', mouth: 'o', brows: 'worried', legs: 'tuck', rot: 20 }) + speed(231, 96, 8, 160)),
+    shot: 'Side-on; the camera rises with the arc.',
+    action: 'Orb launches off the top bar into empty space, over the steep end of the line, straight at the spark.',
+    anim: 'One long parabola, 16 frames, constant horizontal speed. Body stretched on take-off, then tucked.',
     sound: 'Everything drops out except his breath.' },
-  { n: 8, act: 'Climax', f: [241, 252], title: 'Caught it!', big: true,
-    art: cam(3.2, 258, 86, stage(0.6) + bars() + trail(FULL, 0.9, true) + catchOrb + spark(...catchTip, 9) +
-      star(catchTip[0] + 6, catchTip[1] - 4, 2.2) + star(catchTip[0] - 7, catchTip[1] - 3, 1.5, '#F5B942') + star(catchTip[0] + 3, catchTip[1] + 7, 1.3)),
-    shot: 'Medium close; 4-frame freeze on contact.',
-    action: 'His stalk snaps into the spark mid-air. For one frozen beat it looks like a win. Then the spark keeps going, and Orb is still attached.',
-    anim: 'Freeze 4 frames on contact, then the antenna whips taut as the spark pulls. Orb\'s eyes go from relief to "uh-oh" in 3 frames.',
-    sound: 'A bright "click", 4 frames of silence, then a rising whoosh.' },
-  { n: 9, act: 'Climax', f: [253, 300], title: 'The loop', big: true,
-    art: cam(1.35, 190, 112, stage(0.5) + bars() + trail(FULL, 0.9, true) +
-      `<path d="M236 84 A56 56 0 1 0 236 146" fill="none" stroke="#93A6B8" stroke-width="0.6" stroke-dasharray="1.2 2" />` +
-      ringTrail(0.48) + loopOrb + spark(...loopTip, 9) + speed(...onRing(-160), 9, -70) +
-      label(214, 70, 'loop trail', 4.5) + label(118, 192, 'gap stays open', 4.5)),
-    shot: 'Wide; the camera pulls back so the whole loop fits.',
-    action: 'The spark yanks Orb up and round in a full loop over the chart, from the top of the gap, over the top and down the far side. Their trail draws a white ring around the bars.',
-    anim: 'One loop in 44 frames, fastest at the bottom. Orb trails on a stretched antenna and spins with the path. Terrified at the top, grinning by the bottom.',
-    sound: 'Whoosh rising and falling with the loop; Orb\'s "wheee" at the top.' },
-  { n: 10, act: 'Payoff', f: [301, 324], title: 'Slingshot',
-    art: cam(1.05, 195, 134, stage(0.25) + bars() + trail(FULL, 0.9, true) + ringTrail(1, 5, false) +
-      `<path d="M236 146 Q246 160 252 176" fill="none" stroke="#93A6B8" stroke-width="0.7" stroke-dasharray="1.4 1.6"/>` +
-      flingOrb + speed(246, 168, 12, 235) + label(242, 140, 'out through the gap', 5)),
-    shot: 'Wide, locked; Orb tumbles out of the bottom right.',
-    action: 'The loop closes just short of where it started, leaving the gap. Out of the bottom of the gap, Orb is flung clear. The spark stays on his antenna, now a small bud. The floor dissolves and the ring thickens into the C.',
-    anim: 'Fling 8 frames, tumble 2 spins. Floor fades to black over 14 frames. Ring stroke grows from trail to logo weight.',
-    sound: 'Rubber-band twang, then cartoon tumble thumps.' },
-  { n: 11, act: 'Payoff', f: [325, 372], title: 'He stands it up', big: true,
-    art: cam(0.85, 195.5, 136, mark({ v: 1, ground: 1, white: true }) +
-      orb(212, 218, { eyes: 'happy', mouth: 'grin', antenna: 'bud', scale: 1.6, rot: -6 }) + star(230, 192, 4) + star(202, 188, 2.6, '#F5B942') +
+  { n: 8, act: 'Climax', f: [241, 249], title: 'Caught it!', big: true,
+    art: cam(3.4, 256, 90, stage(0.6) + bars() + trail(FULL, 0.9) +
+      orb(257.1, 101.4, { eyes: 'happy', mouth: 'grin', legs: 'tuck', sx: 1.12, sy: 0.9 }) + spark(...HOVER, 9) +
+      star(HOVER[0] + 6, HOVER[1] - 4, 2.2) + star(HOVER[0] - 7, HOVER[1] - 3, 1.5, '#F5B942') + star(HOVER[0] + 5, HOVER[1] + 8, 1.3)),
+    shot: 'Medium close, right at the tip of the line.',
+    action: 'His stalk snaps into the spark, right at the tip of the line. He hangs there for a weightless beat, grinning, cheeks glowing.',
+    anim: 'Contact squash 4 frames. He hangs 8 frames, drifting up a touch. Small sparkle pop.',
+    sound: 'A bright "click", then a sustained shimmer.' },
+  { n: 9, act: 'Climax', f: [250, 277], title: 'Becomes the point', big: true,
+    art: cam(3.6, 254, 90, stage(0.5) + bars() + trail(FULL, 0.9) + `<circle cx="258" cy="87" r="10" fill="url(#iceGlow)"/><circle cx="258" cy="87" r="2" fill="#F5B942"/>` +
+      orb(258, 91.5, { glow: true, eyes: 'happy', mouth: 'smile', antenna: 'none', scale: 0.55, sx: 1.1, sy: 0.8 }) +
+      orb(257.1, 101.4, { ghost: true }) + arrow(257.1, 96, 258, 90) + star(266, 80, 2.2) + star(250, 82, 1.4, '#F5B942') +
+      label(232, 76, 'he becomes the breakout point', 2.6)),
+    shot: 'Close push-in on the tip of the line.',
+    action: 'Orb glows white and folds himself down into the tip of the line. The breakout point flashes: he is the point now.',
+    anim: 'Body slate → white over 12 frames, then shrinks into the point over 22 frames, sliding to it. Point pulses 1.9× and settles. Sparkles.',
+    sound: 'Soft, rising "shoop" into a warm ping.' },
+  { n: 10, act: 'Reveal', f: [278, 311], title: 'The C draws round', big: true,
+    art: cam(0.95, 195, 120, mark({ v: 0, ground: 0, white: false, inner: 0.4 }).replace(ringTrail(1, 12, false), ringTrail(0.62, 12, false)) +
+      label(52, 64, 'C draws from the gap, over the top', 5.5) + label(120, 182, 'chart lifts off the floor', 5.5)),
+    shot: 'Fast pull-back on one ease-out.',
+    action: 'The camera pulls back. The chart lifts off the floor and the C ring draws round it, starting at the gap beside the point and sweeping over the top. The rising line fades; only the breakout stays.',
+    anim: 'Lift 40 frames, smooth in and out. Ring draws over 34 frames, inner ring 12 frames behind. Chase line retracts over 30 frames.',
+    sound: 'Big riser.' },
+  { n: 11, act: 'Reveal', f: [312, 344], title: 'The stand rises',
+    art: cam(0.85, 195.5, 136, mark({ v: 0.6, ground: 1, white: true }) +
       `<path d="M150 236 L150 226 M146 230 L150 226 L154 230 M230 236 L230 226 M226 230 L230 226 L234 230" stroke="#CFE3F5" stroke-width="1" fill="none" stroke-linecap="round"/>`),
     shot: 'Wide, centred on the mark.',
-    action: 'Orb lands on a line rising out of the dark, the groundline, and the V rises with it to hold the ball up. The bars turn white, the last one stays amber. Orb looks up at what he made and grins.',
-    anim: 'V and groundline rise 16 frames with a soft overshoot. Bars blue → white in a left-to-right wipe. Dizzy eyes for 8 frames, then the big grin; his spark grows back to full size.',
-    sound: 'A deep "thoom" as the stand locks in, then a happy chirp.' },
-  { n: 12, act: 'Title', f: [373, 450], title: 'Title',
+    action: 'The groundline and the V rise out of the floor to hold the ball up. The bars turn brand white; the last one stays amber.',
+    anim: 'Groundline then V, 4 frames apart, 14 frames each with a soft overshoot. Bars blue → white over 20 frames. One white flash as the stand locks in.',
+    sound: 'A deep "thoom" as the stand locks in.' },
+  { n: 12, act: 'Title', f: [345, 430], title: 'Title',
     art: '<g id="lockup-slot"></g>' + `<text x="160" y="164" text-anchor="middle" fill="#CFE3F5" style="font-family:'IBM Plex Sans',sans-serif;font-size:7px;letter-spacing:0.4px">We don't chase the number. We see where it's going.</text>`,
     bg: '#16202B',
-    shot: 'Held; fade to black over the last 15 frames.',
-    action: 'Orb hops out of frame right with a wave of his antenna. The wordmark rises in under the mark, then the tagline. The official stacked lockup holds.',
-    anim: 'Orb exits in two hops, 12 frames. Wordmark rises 12 frames. Tagline fades in 10 frames later. Hold, then fade.',
-    sound: 'One warm chord; a last ping from off-screen as Orb leaves.' },
+    shot: 'Pull back to the end card and hold.',
+    action: 'The whole lockup lifts. The wordmark pops in letter by letter under the mark, then the tagline. The official stacked lockup holds.',
+    anim: 'Lift 40 frames. Letters 2 frames apart with a small overshoot. Tagline 26 frames after the first letter. Hold.',
+    sound: 'One warm chord.' },
 ];
 
 const tc = f => { const s = (f - 1) / 30; return `${Math.floor(s)}:${String(Math.round((s % 1) * 30)).padStart(2, '0')}`; };

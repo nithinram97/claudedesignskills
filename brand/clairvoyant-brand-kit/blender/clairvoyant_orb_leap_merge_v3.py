@@ -950,7 +950,7 @@ LIFT = 5.67 + 3 * S_LOGO          # the chart lifts off the floor so the ring cl
 RING_C = Vector((0.0, 0.0, LZ(115)))
 RING_R = 56 * S_LOGO
 GAP_DEG = math.degrees(math.atan2(115 - 84, 236 - 190))   # 34 deg: the C's gap half-angle
-HOVER = DOT + Vector((0.35, 0.0, 0.45))                   # the spark waits just past the tip of the line
+HOVER = DOT + Vector((0.3, 0.0, 0.3))                     # the spark waits just past the tip of the line
 
 
 def smooth(t):
@@ -1092,7 +1092,8 @@ def animate_story(sc, orb, L, root):
     kf(bo, "bevel_factor_end", F_DOT, 1.0)
     kf_vec(spark, "location", F_DOT, tuple(DOT + Vector((0, 0, LINE_R))))
     linear_keys(False)
-    for f, s_ in ((1, 0), (F_DOT - 1, 0), (F_DOT + 3, 1.4), (F_DOT + 7, 1.0)):
+    # the logo's breakout point stays hidden: Orb becomes it at the merge
+    for f, s_ in ((1, 0), (F_MERGE + 18, 0), (F_MERGE + 22, 1.4), (F_MERGE + 30, 1.0)):
         kf_vec(L["dot"], "scale", f, (s_, s_, s_))
 
     # bars grow out of the floor as the line passes over them
@@ -1209,11 +1210,8 @@ def animate_story(sc, orb, L, root):
     fill = bpy.data.lights["Orb_Fill"]
     kf(fill, "energy", F_MERGE + 10, 60)
     kf(fill, "energy", F_MERGE + 22, 0)
-    dot = L["dot"]
-    for f, s_ in ((F_MERGE + 20, 1.0), (F_MERGE + 24, 1.9), (F_MERGE + 32, 1.0)):
-        kf_vec(dot, "scale", f, (s_, s_, s_))
     amber = L["amber"].node_tree.nodes["Emission"].inputs["Strength"]
-    for f, e in ((1, 3.0), (F_MERGE + 22, 3.0), (F_MERGE + 24, 14.0), (F_MERGE + 40, 3.0)):
+    for f, e in ((1, 3.0), (F_MERGE + 22, 3.0), (F_MERGE + 24, 6.0), (F_MERGE + 40, 3.0)):
         kf_socket(amber, f, e)
     sparkle_burst("Merge_Sparkle", DOT, F_MERGE + 23, root)
 
