@@ -64,7 +64,7 @@ LOGO_WHITE = "#FFFFFF"
 # Official logo geometry, in SVG units (see clairvoyant-mark.svg), scaled up 12x:
 # the chart Orb climbs IS the logo's four KPI bars. Baseline (SVG y=150) sits on the floor.
 S_LOGO = 1.0 / 12.0
-ORB_SCALE = 0.35        # Orb is small next to the giant logo
+ORB_SCALE = 0.45        # Orb next to the giant logo: small, but big enough to read
 LOGO_LIFT = 11.0        # how far the whole lockup rises out of the floor at the end
 
 
@@ -327,7 +327,7 @@ def grid_floor_material():
 
     bsdf = N("ShaderNodeBsdfPrincipled")
     set_input(bsdf, "Base Color", hex_rgba("#0A1119"))
-    set_input(bsdf, "Roughness", 0.34)              # satin, not a mirror: no doubled wordmark
+    set_input(bsdf, "Roughness", 0.58)              # matte satin: no mirrored wordmark
     add = N("ShaderNodeAddShader")
     L(bsdf.outputs[0], add.inputs[0]); L(em.outputs[0], add.inputs[1])
     L(add.outputs[0], out.inputs["Surface"])
@@ -524,7 +524,7 @@ def build_lights():
 # Orb the mascot
 # --------------------------------------------------------------------------
 def build_orb():
-    m_body = principled("Orb_Body", "#4E6E8C", rough=0.24, coat=1.0)  # brand slate, lifted for 3D lighting
+    m_body = principled("Orb_Body", "#4F78A0", rough=0.38, coat=0.35)  # brand slate, lifted for 3D light; soft gloss, not chrome
     m_white = principled("Orb_EyeWhite", "#F4F7FA", rough=0.25, coat=0.5)
     m_pupil = principled("Orb_Pupil", "#0B1118", rough=0.08, coat=1.0)
     m_shine = emission("Orb_EyeShine", "#FFFFFF", 6.0)
@@ -665,7 +665,8 @@ def linear_keys(on=True):
 def build_logo_parts(root):
     """Every element of the official stacked lockup, at 12x scale, parented to root."""
     m_white = principled("Logo_White", LOGO_WHITE, rough=0.3, emit=LOGO_WHITE, emit_strength=0.9)
-    m_amber = emission("Logo_Amber", AMBER, 3.0)
+    m_amber = emission("Logo_Amber", AMBER, 2.0)
+    m_bar_amber = principled("Chart_Bar_Amber", AMBER, rough=0.22, coat=0.8, emit=AMBER, emit_strength=0.6)
     L = {"white": m_white, "amber": m_amber}
 
     def tube(name, pts, stroke, mat):
@@ -678,7 +679,7 @@ def build_logo_parts(root):
     L["bars"], L["bar_mats"] = [], []
     for i, (bx, bh) in enumerate(((158, 18), (174, 26), (190, 34), (206, 44))):
         amber = i == 3
-        mat = m_amber if amber else principled(f"Chart_Bar_{i}", "#5FA8E8", rough=0.18, coat=0.8,
+        mat = m_bar_amber if amber else principled(f"Chart_Bar_{i}", "#5FA8E8", rough=0.18, coat=0.8,
                                                emit="#5FA8E8", emit_strength=0.5)
 
         def cube(bm):
@@ -950,7 +951,7 @@ LIFT = 5.67 + 3 * S_LOGO          # the chart lifts off the floor so the ring cl
 RING_C = Vector((0.0, 0.0, LZ(115)))
 RING_R = 56 * S_LOGO
 GAP_DEG = math.degrees(math.atan2(115 - 84, 236 - 190))   # 34 deg: the C's gap half-angle
-HOVER = DOT + Vector((0.3, 0.0, 0.3))                     # the spark waits just past the tip of the line
+HOVER = DOT + Vector((1.1, 0.0, 0.9))                     # the spark waits just past the tip of the line
 
 
 def smooth(t):
@@ -1072,8 +1073,8 @@ def animate_story(sc, orb, L, root):
             (F_BARS[1], Vector((BAR_X[1], 0, BAR_TOP[1] + above))),
             (F_BARS[2], Vector((BAR_X[2], 0, BAR_TOP[2] + above))),
             (F_BARS[3], Vector(BREAK_A))]
-    trail = curve_obj("Spark_Trail", [tuple(p) for _, p in path], 0.05,
-                      emission("Spark_Trail_Glow", AMBER, 5.0), parent=root)
+    trail = curve_obj("Spark_Trail", [tuple(p) for _, p in path], 0.03,
+                      emission("Spark_Trail_Glow", AMBER, 2.5), parent=root)
     trail.data.bevel_factor_mapping_end = "SPLINE"
     trail.data.bevel_factor_mapping_start = "SPLINE"
     seg = [0.0]
@@ -1160,7 +1161,7 @@ def animate_story(sc, orb, L, root):
     c.lean(F_LEAP + 4, 0)
     c.expr(F_LEAP + 1, eyes="wide", brows="worried", mouth="o")
     c.wobble([(F_LEAP, -14), (F_LEAP + 4, 18), (F_LEAP + 10, 0)])
-    fly(c, F_LEAP, F_CATCH, top, feet, height=0.5)
+    fly(c, F_LEAP, F_CATCH, top, feet, height=0.7)
     c.squash(F_CATCH - 1, 1.0, 1.0)
     c.lean(F_CATCH - 1, 0)
     c.wobble([(F_CATCH - 1, 0)])
@@ -1211,7 +1212,7 @@ def animate_story(sc, orb, L, root):
     kf(fill, "energy", F_MERGE + 10, 60)
     kf(fill, "energy", F_MERGE + 22, 0)
     amber = L["amber"].node_tree.nodes["Emission"].inputs["Strength"]
-    for f, e in ((1, 3.0), (F_MERGE + 22, 3.0), (F_MERGE + 24, 6.0), (F_MERGE + 40, 3.0)):
+    for f, e in ((1, 2.0), (F_MERGE + 22, 2.0), (F_MERGE + 24, 4.5), (F_MERGE + 40, 2.0)):
         kf_socket(amber, f, e)
     sparkle_burst("Merge_Sparkle", DOT, F_MERGE + 23, root)
 
@@ -1226,6 +1227,9 @@ def animate_story(sc, orb, L, root):
     kf(trail.data, "bevel_factor_start", 1, 0.0)
     kf(trail.data, "bevel_factor_start", F_REVEAL, 0.0)
     kf(trail.data, "bevel_factor_start", F_REVEAL + 30, 1.0)    # the chase line has done its job
+    kf(bo, "bevel_depth", 1, 0.035)                              # thin while the camera is close...
+    kf(bo, "bevel_depth", F_REVEAL, 0.035)
+    kf(bo, "bevel_depth", F_REVEAL + 30, 3 * S_LOGO / 2)         # ...logo weight once we pull back
     for m in L["bar_mats"]:
         bsdf = m.node_tree.nodes["Principled BSDF"]
         for name in ("Base Color", "Emission Color"):
@@ -1288,7 +1292,7 @@ def build_story_camera(sc):
     top = LZ(53) + LOGO_LIFT
     bottom = LZ(221) - (46 / 2.25) * S_LOGO - (MICHROMA_CAP / MICHROMA_UPM) * (40 / 2.25) * S_LOGO + LOGO_LIFT - (2.3 if TAGLINE else 0)
     centre_z = (top + bottom) / 2
-    dist = ((top - bottom) / 0.62 / 2) / math.tan(math.atan(10.125 / 40))
+    dist = ((top - bottom) / 0.78 / 2) / math.tan(math.atan(10.125 / 40))
     cx = LX(195.5)
     rc = RING_C.z + LIFT          # ring centre once the logo has lifted
 
