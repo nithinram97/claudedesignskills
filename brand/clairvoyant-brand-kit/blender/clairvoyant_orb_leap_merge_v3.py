@@ -14,7 +14,8 @@ HOW TO RUN
   3. Look through the camera: View > Cameras > Active Camera.
   4. Viewport shading > Rendered, and in the shading dropdown set Compositor to
      "Always" for the glow. Solid mode only shows grey shapes.
-  5. F12 renders one frame. Ctrl+F12 renders the MP4 (clairvoyant_orb_merge_*.mp4).
+  5. F12 renders one frame. Ctrl+F12 renders the MP4 (clairvoyant_orb_merge_*.mp4),
+     with the soundtrack from ../audio/ (see AUDIO_FILE).
   Draft quickly: set RENDER_SAMPLES = 16 and RES_X, RES_Y = 1280, 720 below.
   Headless: blender -b your_file.blend --python clairvoyant_orb_leap_merge_v3.py -a
 
@@ -51,6 +52,9 @@ TAGLINE = "We don\u2019t chase the number. We see where it\u2019s going."   # se
 RES_X, RES_Y = 1920, 1080
 RENDER_SAMPLES = 64
 OUTPUT_PATH = "//clairvoyant_orb_merge_"   # relative to the .blend file location
+# Soundtrack (music + sfx), made by tools/make_orb_audio.py. Leave empty to search automatically:
+# next to the .blend, in an audio/ folder next to the .blend, then in the brand kit's audio/ folder.
+AUDIO_FILE = ""
 
 # Brand colours
 SLATE = "#2F4356"
@@ -381,6 +385,10 @@ def render_settings(sc):
         sc.render.ffmpeg.format = "MPEG4"
         sc.render.ffmpeg.codec = "H264"
         sc.render.ffmpeg.constant_rate_factor = "HIGH"
+        sc.render.ffmpeg.audio_codec = "AAC"            # the MP4 carries the soundtrack
+        sc.render.ffmpeg.audio_bitrate = 320
+        sc.render.ffmpeg.audio_mixrate = 48000
+        sc.render.ffmpeg.audio_channels = "STEREO"
     except Exception:
         sc.render.image_settings.file_format = "PNG"   # fallback: image sequence
 
@@ -1337,6 +1345,53 @@ def build_story_camera(sc):
 
 
 # --------------------------------------------------------------------------
+# Soundtrack
+# --------------------------------------------------------------------------
+def find_audio():
+    name = "clairvoyant_orb_merge_mix.wav"
+    candidates = [AUDIO_FILE] if AUDIO_FILE else []
+    if bpy.data.filepath:
+        blend_dir = os.path.dirname(bpy.data.filepath)
+        candidates += [os.path.join(blend_dir, name), os.path.join(blend_dir, "audio", name)]
+    for txt in bpy.data.texts:                      # where this script was opened from
+        if txt.filepath and txt.filepath.endswith(".py"):
+            here = os.path.dirname(bpy.path.abspath(txt.filepath))
+            candidates.append(os.path.join(here, "..", "audio", name))
+    try:
+        candidates.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "audio", name))
+    except NameError:
+        pass
+    for c in candidates:
+        c = bpy.path.abspath(c)
+        if os.path.isfile(c):
+            return os.path.normpath(c)
+    return None
+
+
+def add_soundtrack(sc):
+    path = find_audio()
+    if not path:
+        print("No soundtrack found (clairvoyant_orb_merge_mix.wav): the film will be silent. Set AUDIO_FILE.")
+        return
+    ed = sc.sequence_editor_create()
+    strips = ed.strips if hasattr(ed, "strips") else ed.sequences     # 5.x / 4.x
+    for s in list(strips):
+        if s.type == "SOUND":
+            strips.remove(s)
+    try:
+        snd = strips.new_sound("Soundtrack", path, channel=1, frame_start=1)
+    except RuntimeError as err:                     # e.g. a Blender build without audio support
+        print("Could not add the soundtrack:", err)
+        return
+    snd.volume = 1.0
+    try:
+        sc.sync_mode = "AUDIO_SYNC"                 # viewport playback keeps time with the sound
+    except Exception:
+        pass
+    print("Soundtrack:", path)
+
+
+# --------------------------------------------------------------------------
 # Build it all
 # --------------------------------------------------------------------------
 def main():
@@ -1368,6 +1423,7 @@ def main():
         kf(shaft.data, "energy", f, e)
 
     setup_bloom(sc)
+    add_soundtrack(sc)
     sc.frame_set(1)
     print("Clairvoyant 'Orb, leap and merge' scene built: %d frames. Space = preview, Ctrl+F12 = render." % FRAME_END)
 
