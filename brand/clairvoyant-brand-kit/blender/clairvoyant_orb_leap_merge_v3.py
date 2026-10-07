@@ -1094,7 +1094,9 @@ def animate_story(sc, orb, L, root):
     kf_vec(spark, "location", F_DOT, tuple(DOT + Vector((0, 0, LINE_R))))
     linear_keys(False)
     # the logo's breakout point stays hidden: Orb becomes it at the merge
-    for f, s_ in ((1, 0), (F_MERGE + 18, 0), (F_MERGE + 22, 1.4), (F_MERGE + 30, 1.0)):
+    # small to match the thin line in close-up; grows to logo size with the line at the reveal
+    for f, s_ in ((1, 0), (F_MERGE + 18, 0), (F_MERGE + 22, 0.5), (F_MERGE + 30, 0.32),
+                  (F_REVEAL, 0.32), (F_REVEAL + 30, 1.0)):
         kf_vec(L["dot"], "scale", f, (s_, s_, s_))
 
     # bars grow out of the floor as the line passes over them
