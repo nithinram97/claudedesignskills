@@ -913,21 +913,27 @@ class Choreo:
             self.expr(f1 + 7, eyes="open", brows="happy", mouth="smile")
 
 
-def sparkle_burst(name, centre, frame, parent, n=18):
+def sparkle_burst(name, centre, frame, parent, n=18, size=1.0, start=0.35):
+    """Sparks that are born a little way out from the centre (never piled on it), fly out and fade."""
     import random
     random.seed(11)
     mats = [emission(f"{name}_Amber", AMBER, 12.0), emission(f"{name}_White", "#FFFFFF", 9.0)]
     for i in range(n):
-        a = 2 * math.pi * i / n + random.uniform(-0.15, 0.15)
-        r = random.uniform(1.0, 2.2)
-        end = centre + Vector((r * math.cos(a), random.uniform(-0.4, 0.2), r * math.sin(a)))
-        s = sphere(f"{name}_{i:02d}", random.uniform(0.04, 0.08), mats[i % 2], parent, tuple(centre), seg=12, rings=6)
+        # scattered, never a neat ring: random angle, start distance, speed and launch frame
+        a = 2 * math.pi * i / n + random.uniform(-0.6, 0.6)
+        r = random.uniform(0.8, 2.4)
+        d = Vector((math.cos(a), 0, math.sin(a)))
+        born = centre + d * start * random.uniform(0.7, 1.8)
+        end = centre + d * r + Vector((0, random.uniform(-0.4, 0.2), random.uniform(-0.3, 0.5)))
+        f0 = frame + random.randint(0, 5)
+        life = random.randint(14, 24)
+        s = sphere(f"{name}_{i:02d}", random.uniform(0.025, 0.065) * size, mats[i % 2], parent, tuple(born), seg=12, rings=6)
         kf_vec(s, "scale", 1, (0, 0, 0))
-        kf_vec(s, "scale", frame - 1, (0, 0, 0))
-        kf_vec(s, "location", frame, tuple(centre))
-        kf_vec(s, "scale", frame, (1.4, 1.4, 1.4))
-        kf_vec(s, "location", frame + 22, tuple(end))
-        kf_vec(s, "scale", frame + 22, (0, 0, 0))
+        kf_vec(s, "scale", f0 - 1, (0, 0, 0))
+        kf_vec(s, "location", f0 - 1, tuple(born))
+        kf_vec(s, "scale", f0 + 3, (1.2, 1.2, 1.2))
+        kf_vec(s, "location", f0 + life, tuple(end))
+        kf_vec(s, "scale", f0 + life, (0, 0, 0))
 
 
 
@@ -1149,11 +1155,11 @@ def animate_story(sc, orb, L, root):
     c.lean(F_PSYCH + 4, 0)
     c.squash(F_PSYCH + 4, 1.0, 1.0)
     c.lean(F_PSYCH + 10, -10)                      # rocks back, gathering himself
-    c.squash(F_PSYCH + 10, 1.06, 0.94)
+    c.squash(F_PSYCH + 10, 1.04, 0.96)
     c.lean(F_PSYCH + 14, -10)
     for k in range(3):                             # a tiny shiver
-        c.squash(F_PSYCH + 14 + k * 2, 1.18, 0.8 if k % 2 else 0.84)
-    c.squash(F_LEAP - 1, 1.24, 0.74)               # deepest crouch
+        c.squash(F_PSYCH + 14 + k * 2, 1.06 if k % 2 else 1.09, 0.94 if k % 2 else 0.91)
+    c.squash(F_LEAP - 1, 1.14, 0.86)               # deepest crouch, still round
     c.lean(F_LEAP - 1, 4)
 
     # ---- 7. LEAP OF FAITH ------------------------------------------------------------
@@ -1216,7 +1222,7 @@ def animate_story(sc, orb, L, root):
     amber = L["amber"].node_tree.nodes["Emission"].inputs["Strength"]
     for f, e in ((1, 2.0), (F_MERGE + 22, 2.0), (F_MERGE + 24, 4.5), (F_MERGE + 40, 2.0)):
         kf_socket(amber, f, e)
-    sparkle_burst("Merge_Sparkle", DOT, F_MERGE + 23, root)
+    sparkle_burst("Merge_Sparkle", DOT, F_MERGE + 23, root, n=14, size=0.7, start=0.45)
 
     # ---- 10. REVEAL: the chart lifts off the floor and the C draws round it -------
     ring, inner = L["ring"].data, L["inner"].data
