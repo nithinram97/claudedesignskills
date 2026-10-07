@@ -1,44 +1,39 @@
 #!/usr/bin/env python3
 """
-Clairvoyant: "Orb, leap and loop"  (Blender animation script, v3)
-================================================================
+Clairvoyant: "Orb, leap and merge"  (Blender animation script, v3)
+=================================================================
 
-The logo film from the keyframe storyboard in
-storyboards/orb-logo-film/storyboard.html. Orb, the logo, the stage, the
-lights and the jump helper are reused from clairvoyant_orb_chase_story_v2.py;
-the story, timing and camera are new.
+Orb, the logo, the stage, the lights and the jump helper come from
+clairvoyant_orb_chase_story_v2.py; the story, timing, camera and look are new.
 
 HOW TO RUN
   1. Open Blender 4.2 or newer. Start a NEW General file and save it somewhere
      (the video is written next to the .blend).
   2. Scripting tab > Text > Open... > pick this file > Run Script (or Alt+P).
-     The scene is wiped and rebuilt (about 10-30 s).
+     The scene is wiped and rebuilt (a few seconds).
   3. Look through the camera: View > Cameras > Active Camera.
   4. Viewport shading > Rendered, and in the shading dropdown set Compositor to
      "Always" for the glow. Solid mode only shows grey shapes.
-  5. F12 renders one frame. Ctrl+F12 renders the MP4 (clairvoyant_orb_loop_*.mp4).
+  5. F12 renders one frame. Ctrl+F12 renders the MP4 (clairvoyant_orb_merge_*.mp4).
   Draft quickly: set RENDER_SAMPLES = 16 and RES_X, RES_Y = 1280, 720 below.
-  Headless: blender --background --python clairvoyant_orb_leap_loop_v3.py
-            --render-anim   (renders straight to OUTPUT_PATH)
+  Headless: blender -b your_file.blend --python clairvoyant_orb_leap_merge_v3.py -a
 
-STORY (490 frames @ 30 fps, about 16.3 s). Beat frames are the F_* constants.
+STORY (430 frames @ 30 fps, about 14.3 s). Beat frames are the F_* constants.
   001  Idle: Orb's antenna spark twitches.
   031  The spark pops off and flies away, drawing a line chart that only rises.
        Bars (the logo's four bars at 12x) grow out of the floor under it.
   055  The chase: Orb runs after it.
   097  He climbs the bars, feeling every jump: psych up, strain, brace, relief.
-  186  On the amber bar he jumps for the spark, hovering past the end of the
-       line, and falls short.
+  186  On the amber bar he jumps for the spark, which has finished the line and
+       hovers just past its tip, and falls short.
   204  He looks back up, rocks back and crouches: psyching himself up.
   225  Leap of faith into empty space.
-  241  Caught it! His stalk snaps into the spark mid-air... and it keeps going.
-  247  The loop: the spark drags him round a full loop over the chart. The chart
-       lifts off the floor, and the trail they draw is the logo's C.
-  299  Slingshot off the open end of the C; he tumbles down onto the floor, dizzy.
-  325  The V stand and groundline rise out of the floor to hold the ball up.
-       The bars turn brand white. He looks up at what he made: big grin.
-  373  He bounds off to the right, out of frame; the lockup lifts; CLAIRVOYANT wordmark
-       (Michroma outlines, embedded) and tagline.
+  241  Caught it! His stalk snaps into the spark, right at the tip of the line.
+  250  The merge: he glows white and folds himself into the tip. The breakout
+       point flashes; he is the point now.
+  278  The reveal: the chart lifts off the floor and the C draws round it.
+  312  The V stand and groundline rise out of the floor to hold the ball up.
+  345  The lockup lifts; CLAIRVOYANT wordmark (Michroma outlines, embedded) and tagline.
 """
 
 import bpy
@@ -51,11 +46,11 @@ from mathutils import Vector, Matrix
 # Settings you may want to change
 # --------------------------------------------------------------------------
 FPS = 30
-FRAME_END = 490
+FRAME_END = 430
 TAGLINE = "We don\u2019t chase the number. We see where it\u2019s going."   # set to "" to drop it
 RES_X, RES_Y = 1920, 1080
 RENDER_SAMPLES = 64
-OUTPUT_PATH = "//clairvoyant_orb_loop_"   # relative to the .blend file location
+OUTPUT_PATH = "//clairvoyant_orb_merge_"   # relative to the .blend file location
 
 # Brand colours
 SLATE = "#2F4356"
@@ -332,7 +327,7 @@ def grid_floor_material():
 
     bsdf = N("ShaderNodeBsdfPrincipled")
     set_input(bsdf, "Base Color", hex_rgba("#0A1119"))
-    set_input(bsdf, "Roughness", 0.12)
+    set_input(bsdf, "Roughness", 0.34)              # satin, not a mirror: no doubled wordmark
     add = N("ShaderNodeAddShader")
     L(bsdf.outputs[0], add.inputs[0]); L(em.outputs[0], add.inputs[1])
     L(add.outputs[0], out.inputs["Surface"])
@@ -376,7 +371,7 @@ def render_settings(sc):
         sc.view_settings.look = "AgX - Punchy"
     except Exception:
         pass
-    sc.view_settings.exposure = 0.3
+    sc.view_settings.exposure = 0.0
 
     sc.render.filepath = OUTPUT_PATH
     try:
@@ -413,8 +408,8 @@ def setup_bloom(sc):
                 break
             except Exception:
                 continue
-        set_input(glare, "Threshold", 0.8)
-        set_input(glare, "Strength", 0.9)
+        set_input(glare, "Threshold", 1.2)
+        set_input(glare, "Strength", 0.55)
         set_input(glare, "Size", 0.75)
         try:
             glare.inputs["Quality"].default_value = "High"
@@ -422,7 +417,7 @@ def setup_bloom(sc):
             pass
     else:
         glare.glare_type = "BLOOM" if "BLOOM" in [i.identifier for i in glare.bl_rna.properties["glare_type"].enum_items] else "FOG_GLOW"
-        glare.threshold = 0.8
+        glare.threshold = 1.2
         glare.quality = "HIGH"
         if hasattr(glare, "size"):
             glare.size = 7
@@ -477,14 +472,14 @@ def build_stage():
     random.seed(7)
 
     def motes(bm):
-        for _ in range(220):
-            r = random.uniform(2.5, 14)
+        for _ in range(90):                        # sparse, small and cool: dust in the light, not confetti
+            r = random.uniform(4.0, 16)
             a = random.uniform(0, 2 * math.pi)
-            z = random.uniform(0.3, 7)
-            s = random.uniform(0.01, 0.035)
+            z = random.uniform(0.5, 12)
+            s = random.uniform(0.008, 0.02)
             mat = Matrix.Translation((r * math.cos(a), r * math.sin(a), z))
             bmesh.ops.create_icosphere(bm, subdivisions=1, radius=s, matrix=mat)
-    dust = mesh_obj("Floating_Motes", motes, emission("Mote_Glow", AMBER, 18.0), smooth=False)
+    dust = mesh_obj("Floating_Motes", motes, emission("Mote_Glow", ICE, 4.0), smooth=False)
     kf(dust, "rotation_euler", 1, 0.0, index=2)
     kf(dust, "rotation_euler", FRAME_END, math.radians(40), index=2)
     kf(dust, "location", 1, 0.0, index=2)
@@ -529,7 +524,7 @@ def build_lights():
 # Orb the mascot
 # --------------------------------------------------------------------------
 def build_orb():
-    m_body = principled("Orb_Body", "#46647F", rough=0.3, coat=0.8)  # brand slate, lifted for 3D lighting
+    m_body = principled("Orb_Body", "#4E6E8C", rough=0.24, coat=1.0)  # brand slate, lifted for 3D lighting
     m_white = principled("Orb_EyeWhite", "#F4F7FA", rough=0.25, coat=0.5)
     m_pupil = principled("Orb_Pupil", "#0B1118", rough=0.08, coat=1.0)
     m_shine = emission("Orb_EyeShine", "#FFFFFF", 6.0)
@@ -592,6 +587,17 @@ def build_orb():
         foot = sphere(f"Orb_Foot_{side}", 1.0, m_body, root, (0.45 * sx, -0.12, 0.13), (0.24, 0.34, 0.14))
         foot.rotation_euler.z = math.radians(-12 * sx)
         feet.append(foot)
+
+    # a soft ice fill that travels with him, so he never sinks into the dark
+    fl = bpy.data.lights.new("Orb_Fill", "AREA")
+    fl.energy = 60
+    fl.size = 3.0
+    fl.color = hex_rgba(ICE)[:3]
+    flo = bpy.data.objects.new("Orb_Fill", fl)
+    flo.parent = root
+    flo.location = (-1.5, -4.0, 3.5)
+    flo.rotation_euler = (math.radians(60), 0, math.radians(-20))
+    link_obj(flo)
 
     return dict(root=root, body=body, eyes=eyes, pupils=pupils, antenna=ant,
                 tip=tip, tip_mat=m_amber, tip_light=tl, legs=legs, feet=feet, body_mat=m_body)
@@ -658,7 +664,7 @@ def linear_keys(on=True):
 
 def build_logo_parts(root):
     """Every element of the official stacked lockup, at 12x scale, parented to root."""
-    m_white = principled("Logo_White", LOGO_WHITE, rough=0.3, emit=LOGO_WHITE, emit_strength=1.6)
+    m_white = principled("Logo_White", LOGO_WHITE, rough=0.3, emit=LOGO_WHITE, emit_strength=0.9)
     m_amber = emission("Logo_Amber", AMBER, 3.0)
     L = {"white": m_white, "amber": m_amber}
 
@@ -672,8 +678,8 @@ def build_logo_parts(root):
     L["bars"], L["bar_mats"] = [], []
     for i, (bx, bh) in enumerate(((158, 18), (174, 26), (190, 34), (206, 44))):
         amber = i == 3
-        mat = m_amber if amber else principled(f"Chart_Bar_{i}", "#5FA8E8", rough=0.25,
-                                               emit="#5FA8E8", emit_strength=1.2)
+        mat = m_amber if amber else principled(f"Chart_Bar_{i}", "#5FA8E8", rough=0.18, coat=0.8,
+                                               emit="#5FA8E8", emit_strength=0.5)
 
         def cube(bm):
             bmesh.ops.create_cube(bm, size=1.0)
@@ -909,7 +915,7 @@ class Choreo:
 def sparkle_burst(name, centre, frame, parent, n=18):
     import random
     random.seed(11)
-    mats = [emission(f"{name}_Amber", AMBER, 25.0), emission(f"{name}_White", "#FFFFFF", 18.0)]
+    mats = [emission(f"{name}_Amber", AMBER, 12.0), emission(f"{name}_White", "#FFFFFF", 9.0)]
     for i in range(n):
         a = 2 * math.pi * i / n + random.uniform(-0.15, 0.15)
         r = random.uniform(1.0, 2.2)
@@ -925,32 +931,26 @@ def sparkle_burst(name, centre, frame, parent, n=18):
 
 
 # ==========================================================================
-# THE STORY: leap of faith and the loop
+# THE STORY: leap of faith and the merge
 # ==========================================================================
 # Beat frames (30 fps). Change these to retime the film.
 F_POP = 31           # the spark pops off and starts drawing the line
 F_CHASE = 55         # Orb runs after it
 F_CLIMB = 97         # first jump onto a bar
 F_SHORT = 186        # on the amber bar he jumps for the spark and falls short
-F_PSYCH = 204        # he backs up, crouches and psychs himself up
+F_PSYCH = 204        # he looks back up, rocks back and psychs himself up
 F_LEAP = 225         # leap of faith into empty space
-F_CATCH = 241        # his stalk snaps into the spark mid-air
-F_LOOP = 247         # the spark yanks him round a full loop: the trail is the C
-F_SLING = 299        # flung out through the gap
-F_STAND = 325        # the V stand and groundline rise to hold the ball up
-F_TITLE = 373        # Orb hops off; the lockup lifts; wordmark and tagline
+F_CATCH = 241        # his stalk snaps into the spark, right at the tip of the line
+F_MERGE = 250        # he glows and folds himself into the tip: the breakout point
+F_REVEAL = 278       # the chart lifts off the floor and the C draws round it
+F_STAND = 312        # the V stand and groundline rise to hold the ball up
+F_TITLE = 345        # the lockup lifts; wordmark and tagline
 
-STRETCH = 1.45       # antenna stretch while he is being dragged round
 LIFT = 5.67 + 3 * S_LOGO          # the chart lifts off the floor so the ring clears it
 RING_C = Vector((0.0, 0.0, LZ(115)))
 RING_R = 56 * S_LOGO
 GAP_DEG = math.degrees(math.atan2(115 - 84, 236 - 190))   # 34 deg: the C's gap half-angle
-LAND = (5.2, 0.0)                 # where Orb lands after the slingshot (world x, z)
-
-
-def ring_pt(deg):
-    a = math.radians(deg)
-    return Vector((RING_C.x + RING_R * math.cos(a), 0.0, RING_C.z + RING_R * math.sin(a)))
+HOVER = DOT + Vector((0.35, 0.0, 0.45))                   # the spark waits just past the tip of the line
 
 
 def smooth(t):
@@ -960,13 +960,13 @@ def smooth(t):
 
 def lift_at(f):
     """How high the logo (Story_Root) sits above the floor at frame f."""
-    if f <= F_CATCH:
+    if f <= F_REVEAL:
         return 0.0
-    if f <= F_LOOP + 28:
-        return LIFT * smooth((f - F_CATCH) / (F_LOOP + 28 - F_CATCH))
-    if f <= F_TITLE + 8:
+    if f <= F_REVEAL + 40:
+        return LIFT * smooth((f - F_REVEAL) / 40)
+    if f <= F_TITLE:
         return LIFT
-    return LIFT + (LOGO_LIFT - LIFT) * smooth((f - F_TITLE - 8) / 40)
+    return LIFT + (LOGO_LIFT - LIFT) * smooth((f - F_TITLE) / 40)
 
 
 def line_pt(frac):
@@ -1018,11 +1018,11 @@ def animate_story(sc, orb, L, root):
     o["root"].scale = (ORB_SCALE,) * 3
     tip, tl = o["tip"], o["tip_light"]
     tl.energy = 25
-    TIP1, TIPK = tip_offset(o, 1.0), tip_offset(o, STRETCH)
+    TIP1 = tip_offset(o, 1.0)
 
-    # ---- the logo lifts off the floor during the loop, and again for the title --------
+    # ---- the logo lifts off the floor at the reveal, and again for the title ---------
     linear_keys(True)
-    for f in [1] + list(range(F_CATCH, F_LOOP + 29)) + list(range(F_TITLE + 8, F_TITLE + 49)):
+    for f in [1] + list(range(F_REVEAL, F_REVEAL + 41)) + list(range(F_TITLE, F_TITLE + 41)):
         kf(root, "location", f, lift_at(f), index=2)
     linear_keys(False)
 
@@ -1051,7 +1051,7 @@ def animate_story(sc, orb, L, root):
     c.hop(F_POP + 3, F_POP + 11, (START_X, 0), (START_X - 0.25, 0), height=0.3, crouch=2, feel=False)
 
     tip_pos = Vector((START_X, 0, 0)) + TIP1
-    spark = sphere("Spark", 0.11, emission("Spark_Glow", AMBER, 30.0), root, tuple(tip_pos), seg=24, rings=12)
+    spark = sphere("Spark", 0.11, emission("Spark_Glow", AMBER, 16.0), root, tuple(tip_pos), seg=24, rings=12)
     sl = bpy.data.lights.new("Spark_Light", "POINT")
     sl.color = hex_rgba(AMBER)[:3]
     sl.shadow_soft_size = 0.1
@@ -1073,7 +1073,7 @@ def animate_story(sc, orb, L, root):
             (F_BARS[2], Vector((BAR_X[2], 0, BAR_TOP[2] + above))),
             (F_BARS[3], Vector(BREAK_A))]
     trail = curve_obj("Spark_Trail", [tuple(p) for _, p in path], 0.05,
-                      emission("Spark_Trail_Glow", AMBER, 12.0), parent=root)
+                      emission("Spark_Trail_Glow", AMBER, 5.0), parent=root)
     trail.data.bevel_factor_mapping_end = "SPLINE"
     trail.data.bevel_factor_mapping_start = "SPLINE"
     seg = [0.0]
@@ -1153,20 +1153,20 @@ def animate_story(sc, orb, L, root):
     c.lean(F_LEAP - 1, 4)
 
     # ---- 7. LEAP OF FAITH ------------------------------------------------------------
-    catch_at = ring_pt(GAP_DEG)                    # the C will start exactly here
-    feet = (catch_at.x - TIP1.x, catch_at.z - TIP1.z)
+    feet = (HOVER.x - TIP1.x, HOVER.z - TIP1.z)    # where his feet are when the tip meets the spark
     c.squash(F_LEAP + 2, 0.82, 1.24)
     c.squash(F_LEAP + 8, 1.0, 1.0)
     c.lean(F_LEAP + 4, 0)
     c.expr(F_LEAP + 1, eyes="wide", brows="worried", mouth="o")
     c.wobble([(F_LEAP, -14), (F_LEAP + 4, 18), (F_LEAP + 10, 0)])
-    fly(c, F_LEAP, F_CATCH, top, feet, height=0.3)
+    fly(c, F_LEAP, F_CATCH, top, feet, height=0.5)
     c.squash(F_CATCH - 1, 1.0, 1.0)
+    c.lean(F_CATCH - 1, 0)
+    c.wobble([(F_CATCH - 1, 0)])
 
-    # the spark hovers over the end of the chart, bobbing, until he catches it
-    linear_keys(False)
+    # the spark hovers just past the tip of the line, bobbing, until he catches it
     for f, dz in ((F_DOT + 15, 0.0), (F_DOT + 30, 0.12), (F_DOT + 45, 0.0), (F_DOT + 60, 0.12), (F_CATCH, 0.0)):
-        kf_vec(spark, "location", f, tuple(catch_at + Vector((0, 0, dz))))
+        kf_vec(spark, "location", f, tuple(HOVER + Vector((0, 0, dz))))
 
     # ---- 8. THE CATCH -----------------------------------------------------------------
     kf_vec(spark, "scale", F_CATCH, (1, 1, 1))
@@ -1177,133 +1177,82 @@ def animate_story(sc, orb, L, root):
     kf_vec(tip, "scale", F_CATCH + 1, (1.8, 1.8, 1.8))
     kf_vec(tip, "scale", F_CATCH + 8, (1, 1, 1))
     tip_strength = o["tip_mat"].node_tree.nodes["Emission"].inputs["Strength"]
-    for f, e in ((1, 12), (F_CATCH, 12), (F_CATCH + 1, 80), (F_CATCH + 16, 20)):
+    for f, e in ((1, 12), (F_CATCH, 12), (F_CATCH + 1, 60), (F_CATCH + 14, 16)):
         kf_socket(tip_strength, f, e)
-    for f, e in ((F_CATCH, 0), (F_CATCH + 1, 600), (F_CATCH + 18, 60)):
+    for f, e in ((F_CATCH, 0), (F_CATCH + 1, 400), (F_CATCH + 14, 60), (F_MERGE + 14, 60), (F_MERGE + 22, 0)):
         kf(tl, "energy", f, e)
     c.expr(F_CATCH + 1, eyes="happy", brows="happy", mouth="grin")     # got it!
-    c.expr(F_LOOP - 1, eyes="wide", brows="surprised", mouth="o")      # ...uh-oh
-    c.wobble([(F_CATCH, 0)])
+    c.squash(F_CATCH + 1, 1.22, 0.8)
+    c.squash(F_CATCH + 5, 1.0, 1.0)
+    c.at(F_CATCH + 4, feet[0], feet[1] + 0.06)     # hangs in the air for a beat, weightless
+    c.at(F_MERGE, feet[0], feet[1])
+    sparkle_burst("Catch_Sparkle", HOVER, F_CATCH + 1, root, n=12)
+    blush = o["blush_mat"].node_tree.nodes["Principled BSDF"].inputs["Emission Strength"]
+    for f, e in ((1, 0.4), (F_CATCH, 0.4), (F_CATCH + 3, 3.0)):
+        kf_socket(blush, f, e)
 
-    # ---- 9. THE LOOP: the spark drags him round; the trail becomes the C -----------
-    ant = o["antenna"]
-    kf_vec(ant, "scale", F_CATCH, (1, 1, 1))
-    kf_vec(ant, "scale", F_LOOP + 4, (STRETCH,) * 3)
-    kf_vec(ant, "scale", F_SLING, (STRETCH,) * 3)
-    kf_vec(ant, "scale", F_SLING + 6, (1, 1, 1))
-    alpha = math.degrees(math.atan2(TIPK.z, TIPK.x))
-    rk = math.hypot(TIPK.x, TIPK.z)
-    ring = L["ring"].data
-    gap = GAP_DEG / 360.0
-    kf(ring, "bevel_factor_start", 1, gap)
-    kf(ring, "bevel_factor_end", 1, gap)
-    kf(ring, "bevel_factor_end", F_LOOP, gap)
-    kf(ring, "bevel_depth", 1, 0.05)
-    kf(ring, "bevel_depth", F_SLING, 0.05)
-    kf(ring, "bevel_depth", F_SLING + 16, 6 * S_LOGO)
+    # ---- 9. MERGE: Orb glows and folds himself into the tip of the line ------------
+    b = o["body_mat"].node_tree.nodes["Principled BSDF"]
+    set_input(b, ["Emission Color", "Emission"], hex_rgba(LOGO_WHITE))
+    es, bc = b.inputs["Emission Strength"], b.inputs["Base Color"]
+    for f, e in ((1, 0.0), (F_CATCH, 0.0), (F_MERGE, 1.2), (F_MERGE + 12, 6.0)):
+        kf_socket(es, f, e)
+    kf_socket(bc, F_MERGE, bc.default_value[:])
+    kf_socket(bc, F_MERGE + 12, hex_rgba(LOGO_WHITE))
+    c.expr(F_MERGE, eyes="happy", brows="happy", mouth="smile")
+    for f, s_ in ((F_MERGE, 1.0), (F_MERGE + 8, 0.82), (F_MERGE + 16, 0.38), (F_MERGE + 22, 0.0)):
+        s = ORB_SCALE * s_
+        kf_vec(o["root"], "scale", f, (s, s, s))
+        cx_ = DOT.x + (feet[0] - DOT.x) * s_                     # body centre slides into the point
+        cz_ = DOT.z + (feet[1] + ORB_CENTRE - DOT.z) * s_
+        c.at(f, cx_, cz_ - ORB_CENTRE * s_)
+    fill = bpy.data.lights["Orb_Fill"]
+    kf(fill, "energy", F_MERGE + 10, 60)
+    kf(fill, "energy", F_MERGE + 22, 0)
+    dot = L["dot"]
+    for f, s_ in ((F_MERGE + 20, 1.0), (F_MERGE + 24, 1.9), (F_MERGE + 32, 1.0)):
+        kf_vec(dot, "scale", f, (s_, s_, s_))
+    amber = L["amber"].node_tree.nodes["Emission"].inputs["Strength"]
+    for f, e in ((1, 3.0), (F_MERGE + 22, 3.0), (F_MERGE + 24, 14.0), (F_MERGE + 40, 3.0)):
+        kf_socket(amber, f, e)
+    sparkle_burst("Merge_Sparkle", DOT, F_MERGE + 23, root)
 
-    linear_keys(True)
-    prev_th = 0.0
-    for f in range(F_CATCH, F_SLING + 1):
-        lz = lift_at(f)
-        if f < F_LOOP:
-            pos, th = Vector((feet[0], 0, feet[1])), 0.0
-        else:
-            t = (f - F_LOOP) / (F_SLING - F_LOOP)
-            ang = GAP_DEG + (360 - 2 * GAP_DEG) * t ** 1.5
-            a = math.radians(ang)
-            S = ring_pt(ang)
-            d = Vector((-math.sin(a), 0, math.cos(a))) + 0.8 * Vector((-math.cos(a), 0, -math.sin(a)))
-            phi = math.degrees(math.atan2(d.z, d.x))
-            th = alpha - phi
-            th += 360 * round((prev_th - th) / 360)            # keep the spin continuous
-            pos = S - rk * Vector((math.cos(math.radians(phi)), 0, math.sin(math.radians(phi))))
-            w = smooth((f - F_LOOP) / 6)                       # ease out of the catch pose
-            pos = Vector((feet[0], 0, feet[1])).lerp(pos, w)
-            th = th * w
-            kf(ring, "bevel_factor_end", f, ang / 360.0)
-            prev_th = th
-        c.at(f, pos.x, pos.z + lz)
-        spin_y(o["root"], f, th)
-    release, th_r = pos.copy(), prev_th
+    # ---- 10. REVEAL: the chart lifts off the floor and the C draws round it -------
+    ring, inner = L["ring"].data, L["inner"].data
+    for d, gap, f0, f1 in ((ring, L["gap_outer"], F_REVEAL + 6, F_REVEAL + 40),
+                           (inner, L["gap_inner"], F_REVEAL + 18, F_REVEAL + 46)):
+        kf(d, "bevel_factor_start", 1, gap)
+        kf(d, "bevel_factor_end", 1, gap)
+        kf(d, "bevel_factor_end", f0, gap)
+        kf(d, "bevel_factor_end", f1, 1 - gap)
     kf(trail.data, "bevel_factor_start", 1, 0.0)
-    kf(trail.data, "bevel_factor_start", F_LOOP, 0.0)
-    kf(trail.data, "bevel_factor_start", F_SLING, 1.0)          # the chase line has done its job
-    linear_keys(False)
-    c.squash(F_CATCH, 1, 1)
-    c.lean(F_CATCH, 0)
-    c.expr(F_LOOP + 14, eyes="wide", brows="happy", mouth="grin")      # terrified -> thrilled
+    kf(trail.data, "bevel_factor_start", F_REVEAL, 0.0)
+    kf(trail.data, "bevel_factor_start", F_REVEAL + 30, 1.0)    # the chase line has done its job
+    for m in L["bar_mats"]:
+        bsdf = m.node_tree.nodes["Principled BSDF"]
+        for name in ("Base Color", "Emission Color"):
+            if name in bsdf.inputs:
+                s = bsdf.inputs[name]
+                kf_socket(s, F_REVEAL + 28, s.default_value[:])
+                kf_socket(s, F_REVEAL + 48, hex_rgba(LOGO_WHITE))
+        s = bsdf.inputs["Emission Strength"]
+        kf_socket(s, F_REVEAL + 28, 0.5)
+        kf_socket(s, F_REVEAL + 48, 0.9)
+    ws = L["white"].node_tree.nodes["Principled BSDF"].inputs["Emission Strength"]
+    for f, e in ((1, 0.9), (F_STAND + 16, 0.9), (F_STAND + 20, 3.5), (F_STAND + 34, 0.9)):
+        kf_socket(ws, f, e)
 
-    # ---- 10. SLINGSHOT: off the open end of the C, tumbling down to the floor -------
-    lz = lift_at(F_SLING)
-    land_frame = F_SLING + 22
-    pts = fly(c, F_SLING, land_frame, (release.x, release.z + lz), LAND, height=1.2)
-    th_end = 360 * math.floor(th_r / 360) - 360
-    linear_keys(True)
-    for i in range(land_frame - F_SLING + 1):
-        spin_y(o["root"], F_SLING + i, th_r + (th_end - th_r) * i / (land_frame - F_SLING))
-    linear_keys(False)
-    c.squash(land_frame - 1, 0.9, 1.12)
-    c.squash(land_frame + 1, 1.3, 0.7)
-    c.squash(land_frame + 6, 0.94, 1.07)
-    c.squash(land_frame + 10, 1.0, 1.0)
-    c.face(land_frame, 0)
-    c.expr(land_frame + 1, eyes="closed", brows="worried", mouth="flat")
-    c.expr(land_frame + 6, eyes="squint", brows="worried", mouth="o")   # dizzy
-    for i, a in enumerate((10, -12, 9, -7, 4, 0)):
-        c.lean(land_frame + 4 + i * 4, a)
-
-    # ring thickens into the C; the inner ring draws in
-    inner = L["inner"].data
-    gi = L["gap_inner"]
-    kf(inner, "bevel_factor_start", 1, gi)
-    kf(inner, "bevel_factor_end", 1, gi)
-    kf(inner, "bevel_factor_end", F_SLING + 6, gi)
-    kf(inner, "bevel_factor_end", F_SLING + 30, 1 - gi)
-
-    # ---- 11. HE STANDS IT UP: V and groundline rise out of the floor ------------------
+    # ---- 11. THE STAND: V and groundline rise out of the floor to hold the ball ------
     for key, f0 in (("ground", F_STAND), ("v", F_STAND + 4)):
         ob = L[key]
         kf(ob, "location", 1, -8.0, index=2)
         kf(ob, "location", f0, -8.0, index=2)
         kf(ob, "location", f0 + 14, 0.25, index=2)
         kf(ob, "location", f0 + 20, 0.0, index=2)
-    for m in L["bar_mats"]:
-        bsdf = m.node_tree.nodes["Principled BSDF"]
-        for name in ("Base Color", "Emission Color"):
-            if name in bsdf.inputs:
-                s = bsdf.inputs[name]
-                kf_socket(s, F_STAND + 8, s.default_value[:])
-                kf_socket(s, F_STAND + 30, hex_rgba(LOGO_WHITE))
-        s = bsdf.inputs["Emission Strength"]
-        kf_socket(s, F_STAND + 8, 1.2)
-        kf_socket(s, F_STAND + 30, 1.6)
-    ws = L["white"].node_tree.nodes["Principled BSDF"].inputs["Emission Strength"]
-    for f, e in ((1, 1.6), (F_STAND + 22, 1.6), (F_STAND + 26, 6.0), (F_STAND + 40, 1.6)):
-        kf_socket(ws, f, e)
-    c.look(F_STAND + 18, -0.1, 0.12)               # looks up at what they drew
-    c.expr(F_STAND + 18, eyes="wide", brows="surprised", mouth="o")
-    c.expr(F_STAND + 28, eyes="happy", brows="happy", mouth="grin")
-    blush = o["blush_mat"].node_tree.nodes["Principled BSDF"].inputs["Emission Strength"]
-    for f, e in ((1, 0.4), (F_STAND + 26, 0.4), (F_STAND + 30, 3.0), (F_TITLE + 30, 1.2)):
-        kf_socket(blush, f, e)
-    sparkle_burst("Joy_Sparkle", Vector((LAND[0], 0, 1.0)), F_STAND + 29, None)
-    c.hop(F_STAND + 32, F_STAND + 44, LAND, LAND, height=0.6, crouch=3, feel=False)   # happy bounce
-    c.face(F_STAND + 32, 0)
-    c.face(F_STAND + 44, 360)
 
-    # ---- 12. TITLE: Orb hops out of frame; the lockup lifts; wordmark + tagline -----
-    c.face(F_TITLE - 4, 360)
-    c.face(F_TITLE, 360 + 60)
-    c.expr(F_TITLE, eyes="open", brows="happy", mouth="smile")
-    c.look(F_TITLE, 0.1, 0)
-    x = LAND[0]
-    for i in range(8):                             # bounds off to the right, out of frame
-        f0 = F_TITLE + 2 + i * 9
-        c.hop(f0, f0 + 9, (x, 0), (x + 3.2, 0), height=0.9, small=True)
-        x += 3.2
+    # ---- 12. TITLE: the lockup lifts; wordmark and tagline ----------------------------
     for i, ob in enumerate(L["letters"]):
-        f0 = F_TITLE + 30 + i * 2
+        f0 = F_TITLE + 20 + i * 2
         kf_vec(ob, "scale", 1, (0, 0, 0))
         kf_vec(ob, "scale", f0, (0, 0, 0))
         kf_vec(ob, "scale", f0 + 5, (1.15, 1.15, 1.15))
@@ -1311,12 +1260,12 @@ def animate_story(sc, orb, L, root):
     if "tagline_strength" in L:
         ts = L["tagline_strength"]
         kf_socket(ts, 1, 0.0)
-        kf_socket(ts, F_TITLE + 56, 0.0)
-        kf_socket(ts, F_TITLE + 72, 1.5)
+        kf_socket(ts, F_TITLE + 46, 0.0)
+        kf_socket(ts, F_TITLE + 62, 1.2)
         tg = L["tagline"]
         kf_vec(tg, "scale", 1, (0, 0, 0))
-        kf_vec(tg, "scale", F_TITLE + 55, (0, 0, 0))
-        kf_vec(tg, "scale", F_TITLE + 56, (1, 1, 1))
+        kf_vec(tg, "scale", F_TITLE + 45, (0, 0, 0))
+        kf_vec(tg, "scale", F_TITLE + 46, (1, 1, 1))
 
 
 # --------------------------------------------------------------------------
@@ -1344,7 +1293,6 @@ def build_story_camera(sc):
     dist = ((top - bottom) / 0.62 / 2) / math.tan(math.atan(10.125 / 40))
     cx = LX(195.5)
     rc = RING_C.z + LIFT          # ring centre once the logo has lifted
-    H = ring_pt(GAP_DEG)
 
     shots = [  # frame, camera, target
         (1, (START_X + 1.4, -6.5, 1.3), (START_X, 0, 0.6)),
@@ -1354,25 +1302,25 @@ def build_story_camera(sc):
         (F_CHASE + 22, (-5.6, -7.2, 1.6), (-5.2, 0, 1.0)),               # side-on tracking
         (F_CLIMB, (-3.6, -8.0, 2.0), (-3.0, 0, 1.4)),
         (F_CLIMB + 44, (-0.6, -8.4, 3.0), (-0.2, 0, 2.6)),               # crane up with the climb
-        (F_CLIMB + 76, (1.4, -8.6, 4.0), (1.8, 0, 3.8)),
-        (F_SHORT, (2.6, -9.6, 4.9), (2.8, 0, 4.6)),                      # Orb small, spark out of reach
+        (F_CLIMB + 76, (1.6, -8.8, 4.0), (2.0, 0, 3.9)),
+        (F_SHORT, (3.4, -10.5, 5.0), (3.6, 0, 4.7)),                     # Orb small, spark out of reach
         (F_PSYCH, (2.1, -5.4, 4.3), (2.2, 0, 4.3)),                      # push in on the psych-up
-        (F_LEAP - 2, (1.9, -4.6, 4.2), (2.0, 0, 4.2)),
-        (F_LEAP + 8, (2.6, -7.0, 4.9), (2.8, 0, 4.9)),                   # rise with the leap
-        (F_CATCH, (H.x - 0.2, -5.6, H.z + 0.1), (H.x - 0.2, 0, H.z)),    # the catch, close
-        (F_LOOP, (H.x - 0.3, -6.0, H.z + 0.4), (H.x - 0.3, 0, H.z + 0.3)),
-        (F_LOOP + 22, (0.4, -27.0, rc + 0.6), (0.3, 0, rc)),             # pull back: the whole loop
-        (F_SLING, (0.8, -28.0, rc), (0.6, 0, rc - 0.4)),
-        (F_SLING + 20, (1.2, -31.0, 7.2), (1.2, 0, 6.6)),                # wide: the mark and Orb
-        (F_STAND + 40, (1.0, -30.0, 7.0), (1.0, 0, 6.8)),
-        (F_TITLE + 8, (cx + 1.0, -31.0, 7.0), (cx + 1.0, 0, 6.8)),
-        (F_TITLE + 52, (cx, -dist, centre_z), (cx, 0, centre_z)),        # end card
+        (F_LEAP - 2, (2.0, -4.8, 4.2), (2.2, 0, 4.2)),
+        (F_LEAP + 8, (3.6, -8.0, 5.0), (3.8, 0, 4.9)),                   # rise with the leap
+        (F_CATCH, (HOVER.x - 0.5, -5.8, HOVER.z), (HOVER.x - 0.5, 0, HOVER.z - 0.2)),   # the catch
+        (F_MERGE + 6, (DOT.x - 0.3, -4.2, DOT.z + 0.2), (DOT.x - 0.1, 0, DOT.z)),       # push in on the merge
+        (F_MERGE + 26, (DOT.x - 0.5, -4.6, DOT.z + 0.1), (DOT.x - 0.3, 0, DOT.z)),
+        (F_REVEAL, (DOT.x - 0.8, -6.0, DOT.z + 0.3), (DOT.x - 0.6, 0, DOT.z + 0.1)),
+        (F_REVEAL + 34, (0.8, -28.0, rc + 0.4), (0.6, 0, rc)),           # pull back: the chart was the logo
+        (F_STAND + 26, (0.8, -30.0, 7.0), (0.6, 0, 6.8)),
+        (F_TITLE, (cx, -31.0, 7.2), (cx, 0, 7.0)),
+        (F_TITLE + 42, (cx, -dist, centre_z), (cx, 0, centre_z)),        # end card
         (FRAME_END, (cx, -dist * 0.97, centre_z), (cx, 0, centre_z)),
     ]
     for f, loc, tgt in shots:
         kf_vec(cam, "location", f, loc)
         kf_vec(target, "location", f, tgt)
-    for f, v in ((1, 2.4), (F_LOOP, 2.4), (F_LOOP + 22, 11.0)):
+    for f, v in ((1, 2.4), (F_REVEAL, 2.4), (F_REVEAL + 30, 11.0)):
         cd.dof.aperture_fstop = v
         cd.keyframe_insert("dof.aperture_fstop", frame=f)
     return cam
@@ -1391,7 +1339,7 @@ def main():
     shaft = build_lights()
 
     root = new_empty("Story_Root", (0, 0, 0), size=1.5)     # the chart / logo; lifts off the floor
-    orb = build_orb()                                       # Orb is NOT parented: he stays on the floor
+    orb = build_orb()                                       # Orb is NOT parented: he moves in world space
     L = build_logo_parts(root)
     animate_story(sc, orb, L, root)
     build_story_camera(sc)
@@ -1400,10 +1348,10 @@ def main():
     if vol:
         d = vol.inputs["Density"]
         kf_socket(d, 1, 0.018)
-        kf_socket(d, F_LOOP, 0.018)
-        kf_socket(d, F_LOOP + 30, 0.006)
-    for f, v in ((1, 0.6), (F_CATCH, 0.6), (F_CATCH + 2, 3.0), (F_CATCH + 30, 0.8),
-                 (F_STAND + 26, 2.5), (F_STAND + 50, 0.6), (FRAME_END, 0.5)):
+        kf_socket(d, F_REVEAL, 0.018)
+        kf_socket(d, F_REVEAL + 30, 0.006)
+    for f, v in ((1, 0.6), (F_MERGE + 22, 0.6), (F_MERGE + 24, 2.5), (F_MERGE + 50, 0.8),
+                 (F_STAND + 20, 2.2), (F_STAND + 44, 0.6), (FRAME_END, 0.5)):
         kf_socket(grid_strength.inputs[1], f, v)
     shaft.location = (1.5, 8.0, 26.0)
     for f, e in ((1, 6000), (F_STAND, 6000), (F_STAND + 30, 40000), (FRAME_END, 30000)):
@@ -1411,7 +1359,7 @@ def main():
 
     setup_bloom(sc)
     sc.frame_set(1)
-    print("Clairvoyant 'Orb, leap and loop' scene built: %d frames. Space = preview, Ctrl+F12 = render." % FRAME_END)
+    print("Clairvoyant 'Orb, leap and merge' scene built: %d frames. Space = preview, Ctrl+F12 = render." % FRAME_END)
 
 
 main()
