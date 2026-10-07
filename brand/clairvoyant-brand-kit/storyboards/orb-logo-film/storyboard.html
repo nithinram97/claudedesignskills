@@ -2,7 +2,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Michroma&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: storyboard sheet in Clairvoyant brand. Header, rules check, cast, beat map, 13 keyframe panels (real sequence, so numbered), hand-off. Film frames stay dark in both themes. */
+/* Layout: storyboard sheet in Clairvoyant brand. Header + idea, cast, beat map, 12 keyframe panels (real sequence), other endings, hand-off. Film frames stay dark in both themes. */
 :root {
   --paper: #f3f6f9;
   --sheet: #ffffff;
@@ -36,17 +36,14 @@ h3 { font-family: var(--f-body); font-weight: 600; font-size: 1rem; margin: 0; }
 p { margin: 0; max-width: 70ch; }
 .eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
 header { display: grid; gap: 14px; }
-.tagline { font-style: italic; color: var(--muted); }
 .meta { display: flex; flex-wrap: wrap; gap: 8px; }
 .chip { font-family: var(--f-mono); font-size: 12px; background: var(--chip); color: var(--ink); padding: 3px 9px; border-radius: 4px; }
 .section { display: grid; gap: 18px; }
 .section > .head { display: grid; gap: 6px; }
 
-.rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr)); gap: 10px 24px; margin: 0; padding: 0; list-style: none; }
-.rules li { display: grid; grid-template-columns: 22px 1fr; gap: 8px; font-size: 14px; min-width: 0; }
-.rules li::before { content: "✓"; font-weight: 600; color: var(--amber); }
-.rules b { font-weight: 600; }
-.rules span { color: var(--muted); }
+.idea { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 14px 28px; }
+.idea div { display: grid; gap: 4px; align-content: start; min-width: 0; }
+.idea p { font-size: 14px; color: var(--muted); }
 
 .cast { display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 12px; }
 .cast figure { margin: 0; display: grid; gap: 6px; }
@@ -74,7 +71,11 @@ header { display: grid; gap: 14px; }
 .notes { display: grid; grid-template-columns: 78px 1fr; gap: 4px 12px; font-size: 13.5px; margin: 0; }
 .notes dt { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
 .notes dd { margin: 0; min-width: 0; }
-.notes code { font-family: var(--f-mono); font-size: 12px; background: var(--chip); padding: 1px 5px; border-radius: 3px; }
+
+.alts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 16px; }
+.alt { background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; padding: 16px; display: grid; gap: 8px; align-content: start; }
+.alt p { font-size: 14px; }
+.alt .why { color: var(--muted); font-size: 13.5px; }
 
 .handoff { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 20px; font-size: 14px; }
 .handoff div { display: grid; gap: 6px; align-content: start; }
@@ -92,7 +93,6 @@ header { display: grid; gap: 14px; }
   <radialGradient id="iceGlow"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0.95"/><stop offset="0.3" stop-color="#CFE3F5" stop-opacity="0.45"/><stop offset="1" stop-color="#CFE3F5" stop-opacity="0"/></radialGradient>
   <linearGradient id="bar" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#0D1620"/><stop offset="1" stop-color="#5FA8E8"/></linearGradient>
   <linearGradient id="barA" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#2A1F0E"/><stop offset="1" stop-color="#F5B942"/></linearGradient>
-  <linearGradient id="barW" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#5FA8E8"/><stop offset="1" stop-color="#FFFFFF"/></linearGradient>
 </defs>
 </svg>
 
@@ -116,30 +116,26 @@ header { display: grid; gap: 14px; }
 
 <div class="wrap">
   <header>
-    <span class="eyebrow">Clairvoyant · logo film · keyframe storyboard v3</span>
+    <span class="eyebrow">Clairvoyant · logo film · keyframe storyboard</span>
     <h1>Orb chases the spark</h1>
-    <p>Orb's antenna spark pops off and draws a rising line chart. Orb chases it up the bars, which are the logo's four bars at film scale. At the amber bar the spark climbs out of reach. Orb stops chasing, sees where the line is going, gets there first and waits. The spark snaps back on, the camera pulls back to show the whole scene was the logo, and Orb melts into the breakout point.</p>
-    <p class="tagline">"We don't chase the number. We see where it's going."</p>
+    <p>Orb's antenna spark pops off and flies away, drawing a rising line chart. Orb chases it up the bars. At the top, the spark is out of reach, so Orb takes a leap of faith and catches it. The spark doesn't stop: it yanks him round in a full loop over the chart, and the loop they draw becomes the logo's crystal-ball C. They slingshot out through the gap, Orb lands on the groundline, and the title comes in.</p>
     <div class="meta">
-      <span class="chip">18.7 s</span><span class="chip">30 fps · 560 frames</span><span class="chip">13 keyframes</span><span class="chip">beats match <b>clairvoyant_orb_chase_story_v2.py</b></span>
+      <span class="chip">15 s</span><span class="chip">30 fps · 450 frames</span><span class="chip">16:9</span><span class="chip">12 keyframes</span><span class="chip">brand kit used for mascot, colours, type and logo shapes only</span>
     </div>
   </header>
 
   <section class="section">
-    <div class="head"><span class="eyebrow">Brand kit rules</span><h2>Checked against the kit</h2></div>
-    <ul class="rules">
-      <li><div><b>The line only goes up.</b> <span>Every trail point is higher than the last. The old 2D pass's dip-bar stumble is replaced by a teeter on the amber bar's edge.</span></div></li>
-      <li><div><b>No decorative circles.</b> <span>There are no shockwave or target rings. The only circle is the C ring, which draws in at the reveal.</span></div></li>
-      <li><div><b>Jumps are physical.</b> <span>Every hop is a parabola at constant horizontal speed, with a crouch before it and a squash on landing.</span></div></li>
-      <li><div><b>The chart is the logo.</b> <span>Bars, trail and breakout use the mark's exact geometry, so the reveal is a camera pull-back, not a morph.</span></div></li>
-      <li><div><b>Orb never clips the bars.</b> <span>He lands with both feet on the bar tops, at least a foot-width in from the edges, except on purpose for the teeter.</span></div></li>
-      <li><div><b>Celebrate big.</b> <span>The catch has happy eyes, a grin, glowing cheeks, sparkles and a spinning jump.</span></div></li>
-    </ul>
+    <div class="head"><span class="eyebrow">The idea</span><h2>Why this climax works</h2></div>
+    <div class="idea">
+      <div><h3>The chase draws the logo</h3><p>The rising line is the chart inside the ball. The loop Orb is dragged through is the C. The gap is where they burst out. No morph or magic transition is needed: the action leaves the mark behind.</p></div>
+      <div><h3>Orb earns it</h3><p>He falls short once, then psychs himself up and jumps into empty space. The climax is a choice he makes, which suits a mascot who is curious, a bit gormless and brave.</p></div>
+      <div><h3>The payoff is fun</h3><p>Catching the spark isn't the end; it's the start of the ride. The loop-the-loop is the biggest, silliest moment, and it happens right before the title, so the film ends on energy.</p></div>
+    </div>
   </section>
 
   <section class="section">
     <div class="head"><span class="eyebrow">Cast</span><h2>Orb's expressions in this film</h2>
-      <p>Drawn from the kit's Orb geometry: slate body, two eyes, blush, amber antenna, V legs and bean feet. He feels every jump: psych up, strain, brace, relief.</p></div>
+      <p>From the brand kit's Orb design. He feels every jump: psych up, strain, brace, relief.</p></div>
     <div class="cast" id="cast"></div>
   </section>
 
@@ -150,40 +146,54 @@ header { display: grid; gap: 14px; }
 
   <section class="section">
     <div class="head"><span class="eyebrow">Keyframes</span><h2>Storyboard</h2>
-      <p>Each panel is a key pose at 30 fps. The "Script" row gives the matching beat constant in the v2 Blender script. Dotted outlines are onion-skin poses and dotted arcs are jump paths; neither appears in the render.</p></div>
+      <p>Each panel is a key pose at 30 fps. Dotted outlines are onion-skin poses and dotted curves are motion paths; neither appears in the render.</p></div>
     <div class="board" id="board"></div>
+  </section>
+
+  <section class="section">
+    <div class="head"><span class="eyebrow">If the loop doesn't land</span><h2>Two other endings</h2>
+      <p>Both reuse panels 1–7 and only change what happens after the leap.</p></div>
+    <div class="alts">
+      <div class="alt"><h3>Through his eye</h3>
+        <p>Orb misses the catch and drops back onto the top bar, defeated. He looks up, and the camera pushes into his eye. Reflected in it is the whole chase, curved by the lens into the C, with the spark at the gap. Pull out: his eye has become the logo.</p>
+        <p class="why">Quieter and more clever. Puts "clairvoyant" in his eye. Loses the big action beat.</p></div>
+      <div class="alt"><h3>He holds it up</h3>
+        <p>Orb catches the spark but falls with it, and lands under the chart. He braces and pushes the whole chart up over his head. His legs splay into the V and his feet into the groundline. Then he steps out and the mark stays standing.</p>
+        <p class="why">Funny and heroic, and explains the V stand. Puts him very close to the mark, so the step-out must be clean.</p></div>
+    </div>
   </section>
 
   <section class="section">
     <div class="head"><span class="eyebrow">Hand-off</span><h2>Notes for the animator</h2></div>
     <div class="handoff">
-      <div><h3>Climax</h3><ul>
-        <li>The turn is Orb choosing to stop. Hold the teeter and the failed jump long enough that the audience wants him to give up.</li>
-        <li>Foresight dashes are ice (#CFE3F5), not amber. Amber belongs to the real data and the spark.</li>
-        <li>After he waits at the point, give the spark 3–4 frames of slow-in so the snap reads as the spark coming to him.</li>
+      <div><h3>Physics</h3><ul>
+        <li>Hops are parabolas at constant horizontal speed, with a crouch before and a squash after.</li>
+        <li>In the loop the spark leads and Orb trails on a stretched antenna. Stretch the stalk most at the bottom of the loop, where the pull is strongest.</li>
+        <li>Orb's body spins with the loop so the antenna always points along the path.</li>
       </ul></div>
-      <div><h3>Reveal and title</h3><ul>
-        <li>Pull back on one continuous ease-out. The bars must land exactly on the mark's bar rectangles.</li>
-        <li>The C ring draws from the top end of the gap, over the top and round to the bottom end, so the gap stays open where the breakout passes through.</li>
-        <li>Bars shift from data-blue to brand white as the ring closes. The amber bar stays amber.</li>
-        <li>End on the official stacked lockup, dark variant, untouched. Orb is not in the lockup.</li>
+      <div><h3>Colour logic</h3><ul>
+        <li>Amber is the data: the spark, the rising line, the breakout. The loop trail is ice white, because it becomes the white C.</li>
+        <li>The chart line only goes up. Bars shift from data-blue to brand white as the ring settles; the last bar stays amber.</li>
+        <li>End on the official lockup, untouched. Orb leaves the frame before the wordmark lands.</li>
       </ul></div>
       <div><h3>Sound</h3><ul>
         <li>A marimba note per bar landing, climbing the scale.</li>
-        <li>On the failed jump, a falling "wah" for comedy; the chart still never dips.</li>
-        <li>Foresight: everything ducks, one sustained shimmer. Catch: 4 frames of silence, then a bright chord.</li>
+        <li>Leap: everything drops out but a breath. Catch: a bright "click".</li>
+        <li>Loop: a rising whoosh with Orb's "wheee" at the top; the slingshot is a rubber-band twang. Title: one warm chord.</li>
       </ul></div>
     </div>
   </section>
 </div>
 
 <script>
-// ---------- world = logo units (mark geometry), floor/baseline y = 150 ----------
-const S = 0.055;                         // Orb scale: body r 5.5, feet to body centre 9.2
+// ---------- world = logo units (mark geometry); floor/baseline y = 150 ----------
+const S = 0.055;                         // Orb scale: body r 5.5
 const BARS = [[158, 132], [174, 124], [190, 116], [206, 106]]; // x, top-y; width 10
 const TOPS = BARS.map(([x, y]) => [x + 5, y]);
-const BREAK0 = [211, 106], BREAK1 = [256, 88], POINT = [258, 87];
-const onBreak = x => [x, 106 - (x - 211) * 0.4];
+const BREAK0 = [211, 106], POINT = [258, 87];
+const onBreak = t => [211 + (258 - 211) * t, 106 - (106 - 87) * t];
+const RC = [190, 115], RR = 56;          // C ring centre and radius
+const onRing = deg => [RC[0] + RR * Math.cos(deg * Math.PI / 180), RC[1] + RR * Math.sin(deg * Math.PI / 180)];
 
 const cam = (z, cx, cy, inner) => `<g transform="translate(${160 - cx * z} ${90 - cy * z}) scale(${z})">${inner}</g>`;
 const frame = (inner, label, bg = 'url(#sky)') => `<svg class="screen" viewBox="0 0 320 180" role="img" aria-label="${label}"><rect width="320" height="180" fill="${bg}"/>${inner}</svg>`;
@@ -201,26 +211,27 @@ function bars(grow = [1, 1, 1, 1], white = false) {
     return h > 0 ? `<rect x="${x}" y="${150 - h}" width="10" height="${h}" rx="1" fill="${fill}"/>` : '';
   }).join('');
 }
-function trail(pts, op = 1) {
+function trail(pts, op = 1, dot = false) {
   const d = pts.map(p => p.join(',')).join(' ');
+  const end = pts[pts.length - 1];
   return `<g opacity="${op}"><polyline points="${d}" fill="none" stroke="#F5B942" stroke-width="2.2" stroke-opacity="0.22" stroke-linejoin="round"/>
-    <polyline points="${d}" fill="none" stroke="#F5B942" stroke-width="0.9" stroke-linejoin="round" stroke-linecap="round"/></g>`;
+    <polyline points="${d}" fill="none" stroke="#F5B942" stroke-width="0.9" stroke-linejoin="round" stroke-linecap="round"/>
+    ${dot ? `<circle cx="${end[0]}" cy="${end[1]}" r="1.8" fill="#F5B942"/>` : ''}</g>`;
 }
 const spark = (x, y, r = 7) => `<circle cx="${x}" cy="${y}" r="${r}" fill="url(#amberGlow)"/><circle cx="${x}" cy="${y}" r="1.5" fill="#F5B942"/>`;
-const forecast = (a, b, w = 0.8) => `<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="#CFE3F5" stroke-width="${w}" stroke-dasharray="2.2 1.8" stroke-linecap="round"/>`;
 const arc = (a, b, h) => `<path d="M${a[0]} ${a[1]} Q${(a[0] + b[0]) / 2} ${Math.min(a[1], b[1]) - h * 2} ${b[0]} ${b[1]}" fill="none" stroke="#93A6B8" stroke-width="0.45" stroke-dasharray="1 1.2"/>`;
-const speed = (x, y, len = 8, dir = -1) => [0, 1, 2].map(i => `<line x1="${x + dir * 2}" y1="${y - 2 + i * 2}" x2="${x + dir * (len - i * 2)}" y2="${y - 2 + i * 2}" stroke="#CFE3F5" stroke-width="0.4" stroke-linecap="round" opacity="${0.8 - i * 0.2}"/>`).join('');
+const speed = (x, y, len = 8, ang = 180) => { const a = ang * Math.PI / 180, c = Math.cos(a), s = Math.sin(a), nx = -s, ny = c;
+  return [-1, 0, 1].map((k, i) => `<line x1="${x + c * 2 + nx * k * 2}" y1="${y + s * 2 + ny * k * 2}" x2="${x + c * (len - i * 2) + nx * k * 2}" y2="${y + s * (len - i * 2) + ny * k * 2}" stroke="#CFE3F5" stroke-width="0.4" stroke-linecap="round" opacity="0.75"/>`).join(''); };
 const star = (x, y, r, c = '#FFFFFF') => `<path d="M${x} ${y - r} Q${x} ${y} ${x + r} ${y} Q${x} ${y} ${x} ${y + r} Q${x} ${y} ${x - r} ${y} Q${x} ${y} ${x} ${y - r}Z" fill="${c}"/>`;
-const label = (x, y, t, c = '#93A6B8', size = 3, anchor = 'start') => `<text x="${x}" y="${y}" fill="${c}" text-anchor="${anchor}" style="font-family:'IBM Plex Mono',monospace;font-size:${size}px;font-style:italic">${t}</text>`;
+const label = (x, y, t, size = 3, c = '#93A6B8') => `<text x="${x}" y="${y}" fill="${c}" style="font-family:'IBM Plex Mono',monospace;font-size:${size}px;font-style:italic">${t}</text>`;
+// partial C ring, drawn from the gap's top end over the top (t = 0..1)
+const ringTrail = (t, w = 1.2, glow = true) => `${glow ? `<path d="M236 84 A56 56 0 1 0 236 146" fill="none" stroke="#CFE3F5" stroke-width="${w * 3.5}" stroke-opacity="0.18" pathLength="1" stroke-dasharray="${t} 1"/>` : ''}
+  <path d="M236 84 A56 56 0 1 0 236 146" fill="none" stroke="#F4F7FA" stroke-width="${w}" pathLength="1" stroke-dasharray="${t} 1" stroke-linecap="round"/>`;
 
-// ---------- Orb, built from the kit's orb-*.svg geometry (400×420 canvas, body centre 200,230, feet bottom y 397) ----------
-// o: eyes open|wide|happy|closed  look [dx,dy]  brows none|determined  mouth smile|grin|o|flat|wavy
-//    antenna on|gone|none  legs stand|run|tuck|crouch  glow  sweat  sx sy rot  ghost  scale
-function orb(x, footY, o = {}) {
-  const s = (o.scale || 1) * S, sx = o.sx || 1, sy = o.sy || 1, rot = o.rot || 0;
-  const wrap = g => `<g transform="translate(${x} ${footY}) rotate(${rot}) scale(${sx * s} ${sy * s}) translate(-200 -397)">${g}</g>`;
-  if (o.ghost) return wrap(`<circle cx="200" cy="230" r="100" fill="none" stroke="#CFE3F5" stroke-width="7" stroke-dasharray="14 14" opacity="0.6"/>
-    <path d="M170 310 L160 375 M230 310 L240 375" stroke="#CFE3F5" stroke-width="7" stroke-dasharray="14 14" opacity="0.6"/>`);
+// ---------- Orb, from the brand kit's Orb drawings (400×420 canvas, body centre 200,230, feet bottom y 397) ----------
+// o: eyes open|wide|happy|closed  look [dx,dy]  brows none|determined|worried  mouth smile|grin|o|flat|wavy
+//    antenna on|gone|none  stretch (antenna length factor)  legs stand|run|tuck|crouch|splay  glow  sweat  dizzy  sx sy rot  ghost  scale
+function orbBody(o) {
   const limb = o.glow ? '#E4EEF7' : '#2F4356';
   let g = '';
   if (o.glow) g += `<circle cx="200" cy="230" r="200" fill="url(#iceGlow)"/>`;
@@ -230,10 +241,15 @@ function orb(x, footY, o = {}) {
   if (legs === 'run') g += leg(175, 312, 115, 352, 100, 357, -25) + leg(222, 315, 228, 378, 232, 386);
   if (legs === 'tuck') g += leg(178, 318, 168, 352, 162, 360) + leg(222, 318, 232, 352, 238, 360);
   if (legs === 'crouch') g += leg(170, 318, 150, 368, 147, 383) + leg(230, 318, 250, 368, 253, 383);
-  const ant = o.antenna || 'on';
-  if (ant === 'on') g += `<path d="M230 145 Q238 100 275 80" fill="none" stroke="#F5B942" stroke-width="7.5" stroke-linecap="round"/><circle cx="278" cy="77" r="56" fill="url(#amberGlow)"/><circle cx="278" cy="77" r="14" fill="#F5B942"/>`;
+  if (legs === 'splay') g += leg(172, 314, 120, 370, 108, 376, -20) + leg(228, 314, 280, 370, 292, 376, 20);
+  const ant = o.antenna || 'on', k = o.stretch || 1;
+  if (ant === 'on') {
+    const tx = 230 + 48 * k, ty = 145 - 68 * k;
+    g += `<path d="M230 145 Q${230 + 8 * k} ${145 - 45 * k} ${tx - 3} ${ty + 3}" fill="none" stroke="#F5B942" stroke-width="${7.5 / Math.sqrt(k)}" stroke-linecap="round"/><circle cx="${tx}" cy="${ty}" r="56" fill="url(#amberGlow)"/><circle cx="${tx}" cy="${ty}" r="14" fill="#F5B942"/>`;
+  }
   if (ant === 'gone') g += `<path d="M230 145 Q238 100 268 84" fill="none" stroke="#F5B942" stroke-width="7.5" stroke-linecap="round"/>
     <path d="M276 70 L284 56 M282 80 L298 74 M282 90 L296 96" stroke="#F5B942" stroke-width="5" stroke-linecap="round"/>`;
+  if (ant === 'bud') g += `<path d="M230 145 Q238 100 268 84" fill="none" stroke="#F5B942" stroke-width="7.5" stroke-linecap="round"/><circle cx="271" cy="82" r="30" fill="url(#amberGlow)"/><circle cx="271" cy="82" r="7" fill="#F5B942"/>`;
   g += `<circle cx="200" cy="230" r="100" fill="url(#${o.glow ? 'bodyGlow' : 'body'})"/>`;
   if (!o.glow) g += `<path d="M138 302 A100 100 0 0 0 285 280" fill="none" stroke="#7FC4FF" stroke-width="5" opacity="0.55"/>`;
   const [lx, ly] = o.look || [0, 0];
@@ -241,6 +257,7 @@ function orb(x, footY, o = {}) {
   [162, 238].forEach(ex => {
     if (eyes === 'happy') g += `<path d="M${ex - 22} 226 Q${ex} 200 ${ex + 22} 226" fill="none" stroke="#0B1118" stroke-width="7" stroke-linecap="round"/>`;
     else if (eyes === 'closed') g += `<path d="M${ex - 22} 214 Q${ex} 236 ${ex + 22} 214" fill="none" stroke="#0B1118" stroke-width="7" stroke-linecap="round"/>`;
+    else if (eyes === 'dizzy') g += `<path d="M${ex - 16} 202 L${ex + 16} 234 M${ex + 16} 202 L${ex - 16} 234" stroke="#0B1118" stroke-width="7" stroke-linecap="round"/>`;
     else {
       const wide = eyes === 'wide';
       const rx = wide ? 31 : 27, ry = wide ? 36 : 31, pr = wide ? [10, 12] : [16, 19];
@@ -260,139 +277,152 @@ function orb(x, footY, o = {}) {
   if (m === 'flat') g += `<line x1="188" y1="262" x2="212" y2="262" stroke="#0B1118" stroke-width="5" stroke-linecap="round"/>`;
   if (m === 'wavy') g += `<path d="M180 262 q7 -7 13 0 q7 7 14 0 q7 -7 13 0" fill="none" stroke="#0B1118" stroke-width="4.5" stroke-linecap="round"/>`;
   if (o.sweat) g += `<path d="M96 186 q-8 14 0 20 q8 -6 0 -20Z" fill="#7FC4FF"/><path d="M306 202 q-6 10 0 15 q6 -5 0 -15Z" fill="#7FC4FF"/>`;
-  return wrap(g);
+  return g;
 }
-// antenna-tip world position for a standing Orb (unrotated)
-const tipOf = (x, footY, sc = 1) => [x + 78 * S * sc, footY - 320 * S * sc];
+// place by feet (pivot at the feet)
+function orb(x, footY, o = {}) {
+  const s = (o.scale || 1) * S, sx = o.sx || 1, sy = o.sy || 1, rot = o.rot || 0;
+  const wrap = g => `<g transform="translate(${x} ${footY}) rotate(${rot}) scale(${sx * s} ${sy * s}) translate(-200 -397)">${g}</g>`;
+  if (o.ghost) return wrap(`<circle cx="200" cy="230" r="100" fill="none" stroke="#CFE3F5" stroke-width="7" stroke-dasharray="14 14" opacity="0.6"/>
+    <path d="M170 310 L160 375 M230 310 L240 375" stroke="#CFE3F5" stroke-width="7" stroke-dasharray="14 14" opacity="0.6"/>`);
+  return wrap(orbBody(o));
+}
+// place by body centre, rotated about it; returns [svg, tip position]
+function orbAt(cx, cy, o = {}) {
+  const s = (o.scale || 1) * S, rot = o.rot || 0, k = o.stretch || 1;
+  const a = rot * Math.PI / 180, lx = (48 * k) * s, ly = (145 - 68 * k - 230) * s;
+  const tip = [cx + lx * Math.cos(a) - ly * Math.sin(a), cy + lx * Math.sin(a) + ly * Math.cos(a)];
+  return [`<g transform="translate(${cx} ${cy}) rotate(${rot}) scale(${s}) translate(-200 -230)">${orbBody(o)}</g>`, tip];
+}
 
 // ---------- logo mark, exact geometry (dark variant) ----------
 function mark(o = {}) {
-  const ring = o.ring ?? 1, inner = o.inner ?? 1, v = o.v ?? 1, ground = o.ground ?? 1;
-  let g = '';
-  if (ring > 0) g += `<path d="M236 84 A56 56 0 1 0 236 146" fill="none" stroke="#FFFFFF" stroke-width="12" pathLength="1" stroke-dasharray="${ring} 1"/>`;
-  if (inner > 0) g += `<path d="M225 91 A42 42 0 1 0 225 139" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="${inner}"/>`;
+  const v = o.v ?? 1, ground = o.ground ?? 1;
+  let g = ringTrail(1, 12, false);
+  g += `<path d="M225 91 A42 42 0 1 0 225 139" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="${o.inner ?? 1}"/>`;
   g += `<line x1="152" y1="150" x2="228" y2="150" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>`;
   g += bars([1, 1, 1, 1], o.white ?? true);
   g += `<path d="M211 106 L256 88" fill="none" stroke="#F5B942" stroke-width="3" stroke-linecap="round"/><circle cx="258" cy="87" r="5" fill="#F5B942"/>`;
-  if (v > 0) g += `<g transform="translate(0 ${(1 - v) * 30})" opacity="${v}"><path d="M148 168 L190 210 L232 168" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></g>`;
+  if (v > 0) g += `<g transform="translate(0 ${(v - 1) * 40})" opacity="${Math.min(1, v * 1.5)}"><path d="M148 168 L190 210 L232 168" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></g>`;
   if (ground > 0) g += `<line x1="${190 - 32 * ground}" y1="218" x2="${190 + 32 * ground}" y2="218" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>`;
   return g;
 }
 
 // ---------- cast ----------
 const cast = [
-  ['Neutral', 'idle', { }],
+  ['Neutral', 'idle', {}],
   ['Spark gone', 'stunned, "o" mouth', { antenna: 'gone', eyes: 'wide', mouth: 'o', look: [0.6, -0.8] }],
-  ['Psych up', 'brows down, before a jump', { brows: 'determined', mouth: 'flat', legs: 'crouch', sy: 0.9 }],
-  ['Strain', 'mid-jump, eyes wide', { eyes: 'wide', mouth: 'o', legs: 'tuck', antenna: 'gone' }],
-  ['Worried', 'teetering on the edge', { brows: 'worried', mouth: 'wavy', sweat: true, antenna: 'gone' }],
-  ['Foresight', 'eyes close, body glows', { glow: true, eyes: 'closed', antenna: 'gone' }],
-  ['Joy', 'grin, cheeks glow', { eyes: 'happy', mouth: 'grin', legs: 'tuck' }],
+  ['Psych up', 'brows down, crouch', { antenna: 'gone', brows: 'determined', mouth: 'flat', legs: 'crouch', sy: 0.9 }],
+  ['Strain', 'mid-leap, eyes wide', { eyes: 'wide', mouth: 'o', legs: 'tuck', antenna: 'gone', brows: 'worried' }],
+  ['Thrill', 'riding the loop', { eyes: 'wide', mouth: 'grin', legs: 'splay', stretch: 1.3 }],
+  ['Dizzy', 'after the slingshot', { eyes: 'dizzy', mouth: 'wavy', antenna: 'bud' }],
+  ['Proud', 'grin, cheeks glow', { eyes: 'happy', mouth: 'grin' }],
 ];
 document.getElementById('cast').innerHTML = cast.map(([n, c, o]) =>
   `<figure><svg class="screen" viewBox="0 0 100 100" role="img" aria-label="Orb ${n}"><rect width="100" height="100" fill="url(#sky)"/>${orb(50, 90, { ...o, scale: 4 })}</svg><figcaption><b>${n}</b>${c}</figcaption></figure>`).join('');
 
 // ---------- keyframes ----------
-const START = tipOf(150, 150);           // where the spark leaves Orb's head
-const LINE = [START, ...TOPS];            // rising trail through the bar tops
+const START = [154.3, 132.4];             // antenna tip of Orb standing at x 150
+const LINE = [START, ...TOPS];
+const FULL = [...LINE, POINT];
+
+// panel 8: the catch, just past the point
+const [catchOrb, catchTip] = orbAt(262, 88, { eyes: 'wide', mouth: 'grin', legs: 'tuck', rot: 30, stretch: 1.15, brows: 'worried' });
+// panel 9: mid-loop, left side of the ring, heading down
+const [loopOrb, loopTip] = orbAt(...onRing(-178), { eyes: 'wide', mouth: 'grin', legs: 'splay', rot: 161, stretch: 1.5, scale: 1.25 });
+// panel 10: flung out of the gap, tumbling
+const [flingOrb] = orbAt(252, 176, { eyes: 'wide', mouth: 'o', legs: 'splay', rot: 125, scale: 1.3, antenna: 'bud' });
+
 const F = [
-  { n: 1, act: 'Setup', f: [1, 31], key: 'start', title: 'Idle',
-    art: cam(2.6, 165, 128, stage() + orb(150, 150, { look: [0.3, -0.3] }) + `<path d="M157 130.5 l1.4 -1.6 M159.6 132.4 l2 -0.4" stroke="#F5B942" stroke-width="0.35" stroke-linecap="round"/>` + label(160, 125, '?', '#CFE3F5', 4)),
+  { n: 1, act: 'Setup', f: [1, 30], title: 'Idle',
+    art: cam(2.6, 165, 128, stage() + orb(150, 150, { look: [0.3, -0.3] }) + `<path d="M157 130.5 l1.4 -1.6 M159.6 132.4 l2 -0.4" stroke="#F5B942" stroke-width="0.35" stroke-linecap="round"/>` + label(160, 125, '?', 4, '#CFE3F5')),
     shot: 'Wide, eye level, slow push-in.',
-    action: 'Orb idles on the empty data-grid floor. His antenna tip starts to twitch on its own.',
-    anim: 'Breathing bob, 15-frame cycle. Two tip twitches at frames 14 and 24; Orb glances up at the second one.',
-    sound: 'Low room tone. A small electric tick on each twitch.' },
-  { n: 2, act: 'Setup', f: [32, 61], key: 'F_POP', title: 'The spark escapes',
-    art: cam(2.6, 165, 128, stage() + trail([START, [163, 132], [170, 128.5]]) + spark(170, 128.5) + speed(170, 128.5, 6, -1) + orb(150, 150, { antenna: 'gone', eyes: 'wide', mouth: 'o', look: [0.8, -0.6], sx: 1.06, sy: 0.94 })),
-    shot: 'Wide; whip-pan follows the spark, then snaps back to Orb.',
-    action: 'The tip pops off and zips right, drawing an amber line behind it. Orb is left with a bare stalk, stunned.',
-    anim: '3-frame stretch on the stalk, then the snap. Orb recoils into a 2-frame squash. The line leaves a short glowing tail behind the spark.',
+    action: 'Orb idles on an empty data-grid floor. His antenna spark starts to twitch on its own.',
+    anim: 'Breathing bob, 15-frame cycle. Two twitches; Orb glances up at the second.',
+    sound: 'Low room tone; a small electric tick per twitch.' },
+  { n: 2, act: 'Setup', f: [31, 54], title: 'The spark escapes',
+    art: cam(2.6, 165, 128, stage() + trail([START, [163, 132], [170, 128.5]]) + spark(170, 128.5) + speed(170, 128.5, 6) + orb(150, 150, { antenna: 'gone', eyes: 'wide', mouth: 'o', look: [0.8, -0.6], sx: 1.06, sy: 0.94 })),
+    shot: 'Wide; whip-pan after the spark, snap back to Orb.',
+    action: 'The spark pops off and zips right, drawing an amber line behind it. Orb is left with a bare stalk.',
+    anim: '3-frame stretch on the stalk, then the snap. Orb recoils into a 2-frame squash.',
     sound: 'Rubbery "pop", then a rising synth note.' },
-  { n: 3, act: 'Chase', f: [62, 99], key: 'F_CHASE', title: 'Bars grow, Orb runs',
-    art: cam(2.1, 185, 122, stage() + bars([1, 0.75, 0.45, 0.15]) + trail(LINE) + spark(211, 106) + speed(148, 140, 9, -1) + orb(148, 150, { antenna: 'gone', legs: 'run', brows: 'determined', mouth: 'smile', look: [1, -0.3], rot: 8 })),
-    shot: 'Side-on tracking shot; the camera keeps pace with Orb.',
-    action: 'Bars grow up out of the floor to meet each point of the line. Orb waddles after the spark.',
-    anim: 'Bars rise left to right, 4 frames apart, each with a small overshoot. Orb run cycle 8 frames, lean forward 8°.',
+  { n: 3, act: 'Chase', f: [55, 96], title: 'Bars grow, Orb runs',
+    art: cam(2.1, 185, 122, stage() + bars([1, 0.75, 0.45, 0.15]) + trail(LINE) + spark(211, 106) + speed(144, 140, 9) + orb(148, 150, { antenna: 'gone', legs: 'run', brows: 'determined', look: [1, -0.3], rot: 8 })),
+    shot: 'Side-on tracking shot.',
+    action: 'Bars grow out of the floor to meet each point of the rising line. Orb waddles after the spark.',
+    anim: 'Bars rise left to right, 4 frames apart, with a small overshoot. Run cycle 8 frames, lean forward 8°.',
     sound: 'Footstep pitter-patter; a soft "thunk" per bar.' },
-  { n: 4, act: 'Chase', f: [100, 187], key: 'F_CLIMB', title: 'Climbing the chart',
-    art: cam(2.1, 192, 118, stage() + bars() + trail(LINE) + trail([BREAK0, onBreak(219)]) + spark(...onBreak(219)) +
+  { n: 4, act: 'Chase', f: [97, 150], title: 'Climbing the chart',
+    art: cam(2.1, 192, 118, stage() + bars() + trail(LINE) + trail([BREAK0, onBreak(0.2)]) + spark(...onBreak(0.2)) +
       orb(163, 132, { ghost: true }) + arc([163, 132], [179, 124], 7) + arc([179, 124], [195, 116], 7) +
       orb(179, 124, { antenna: 'gone', brows: 'determined', mouth: 'flat', legs: 'crouch', sy: 0.88, sx: 1.08, look: [1, -0.6] })),
-    shot: 'Medium wide; the camera cranes up as he climbs.',
-    action: 'Orb hops bar to bar like stairs, gaining on the spark with every jump. Each landing lights the bar top.',
-    anim: 'Parabolic hops, 14 frames each, constant horizontal speed. Crouch 4f → strain → brace → land with a 2-frame squash.',
+    shot: 'Medium wide; camera cranes up as he climbs.',
+    action: 'Orb hops bar to bar like stairs, gaining on the spark with every jump.',
+    anim: 'Parabolic hops, 14 frames each. Crouch 4f → strain → brace → 2-frame squash on landing.',
     sound: 'A marimba note per landing, climbing the scale.' },
-  { n: 5, act: 'Turn', f: [188, 225], key: 'F_TEETER', title: 'The edge',
-    art: cam(3, 214, 108, stage() + bars() + trail(LINE) + trail([BREAK0, onBreak(228)]) + spark(...onBreak(228)) +
-      arc([195, 116], [207.5, 106], 4) + orb(207.5, 106, { antenna: 'gone', brows: 'worried', mouth: 'wavy', sweat: true, eyes: 'wide', look: [-0.8, 0.6], rot: -16 }) +
-      `<path d="M201 92 q-2 -2 -4 0 M202 96 q-3 -1 -5 1" stroke="#CFE3F5" stroke-width="0.35" fill="none"/>`),
-    shot: 'Medium; low angle up the amber bar.',
-    action: 'The biggest step yet. Orb lands right on the edge of the amber bar and teeters backwards, rocking his whole body to stay on.',
-    anim: 'Rock back and forth 3 times, each smaller, over 24 frames, then he plants. Sweat drops on the second rock.',
-    sound: 'Squeaky wobble; the music holds one note.' },
-  { n: 6, act: 'Turn', f: [226, 261], key: 'F_EDGE', title: 'Out of reach',
-    art: cam(3, 226, 100, stage() + bars() + trail(LINE) + trail([BREAK0, onBreak(240)]) + spark(...onBreak(240)) +
-      arc([212, 106], [215, 106], 7.5) + orb(213.5, 91.5, { ghost: true }) + label(206, 84, 'apex: short by a body', '#93A6B8', 2.6) +
+  { n: 5, act: 'Turn', f: [151, 186], title: 'Out of reach',
+    art: cam(3, 232, 98, stage() + bars() + trail(FULL, 1, true) + spark(266, 82) +
+      arc([212, 106], [215, 106], 6) + orb(213.5, 94, { ghost: true }) + label(200, 86, 'short by a body', 2.6) +
       orb(213, 106, { antenna: 'gone', eyes: 'wide', mouth: 'o', look: [0.9, -1], sx: 1.14, sy: 0.86 })),
-    shot: 'Medium; the spark sits at frame right, Orb at frame left.',
-    action: 'The spark keeps drawing the breakout line upward, slowly, just out of reach. Orb jumps for it, falls short, and lands back on the bar.',
-    anim: 'Straight-up jump, 16 frames, hang 3 frames at the apex. Heavy squash on landing (30%). Spark keeps a steady slow speed throughout.',
-    sound: 'Jump "boing", then a falling "wah" on the way down.' },
-  { n: 7, act: 'Climax', f: [262, 293], key: 'F_FORESIGHT', title: 'Foresight', big: true,
-    art: cam(3, 232, 98, stage(0.6) + bars() + trail(LINE, 0.7) + trail([BREAK0, onBreak(240)]) + spark(...onBreak(240)) +
-      forecast(onBreak(241.5), POINT) + label(247, 98, 'where it will be', '#CFE3F5', 2.6) + `<line x1="258" y1="88.8" x2="258" y2="92.5" stroke="#CFE3F5" stroke-width="0.3"/>` +
-      orb(211, 106, { glow: true, eyes: 'closed', antenna: 'gone', mouth: 'smile' })),
-    shot: 'Slow push-in; everything except Orb and the line dims.',
-    action: 'Orb stops chasing. His eyes close and he glows. Dashed forecast marks project ahead of the spark, out to where the line will end.',
-    anim: 'Body ramps slate → glow white over 10 frames. Dashes draw out from the spark one at a time, 2 frames apart. Bars and floor dim to 60%.',
-    sound: 'Music drops out. One sustained shimmer.' },
-  { n: 8, act: 'Climax', f: [294, 329], key: 'F_LEAP', title: 'Outrunning the line', big: true,
-    art: cam(3, 236, 96, stage(0.7) + bars() + trail(LINE, 0.8) + trail([BREAK0, onBreak(234)]) + spark(...onBreak(234)) +
-      forecast(onBreak(235.5), POINT) + arc([211, 106], [226, 100], 4) + arc([226, 100], [241, 94], 4) + arc([241, 94], [256, 88], 4) +
-      orb(226, 100, { ghost: true }) + orb(249, 84, { antenna: 'gone', legs: 'tuck', brows: 'determined', mouth: 'smile', look: [1, -0.4] }) + speed(243.5, 79, 6, -1)),
-    shot: 'Side-on; camera tracks Orb, so the spark drifts back through frame.',
-    action: 'Orb hops along the forecast dashes like stepping stones, overtakes the spark and heads for the end of the line.',
-    anim: 'Three parabolic hops, 10 frames each, faster than any hop so far. The spark keeps its slow speed, so he passes it on hop 2.',
-    sound: 'Three quick rising marimba notes; music swells back in.' },
-  { n: 9, act: 'Climax', f: [330, 344], key: 'F_LEAP + 36', title: 'He waits',
-    art: cam(3.2, 249, 88, stage(0.7) + bars() + trail(LINE, 0.8) + trail([BREAK0, onBreak(244)]) + spark(...onBreak(244)) + speed(...onBreak(244), 7, -1) +
-      forecast(onBreak(245.5), [254, 88.4], 0.6) + orb(258, 87, { antenna: 'gone', brows: 'determined', mouth: 'smile', look: [-1, 0.4] })),
-    shot: 'Medium close; Orb at frame right, the spark entering frame left.',
-    action: 'Orb reaches the end of the line first, plants his feet on the very point, turns round and waits for the spark.',
-    anim: 'Land, small settle, half-turn back over 6 frames. One slow blink. The spark eases in over the last 4 frames.',
-    sound: 'Music pauses on a held chord. A tiny "tap" of his foot.' },
-  { n: 10, act: 'Climax', f: [345, 399], key: 'F_CATCH', title: 'The catch', big: true,
-    art: cam(3.2, 252, 82, stage(0.7) + bars() + trail(LINE, 0.8) + trail([BREAK0, BREAK1]) +
-      `<path d="M247 78 A8 8 0 0 1 257 70" fill="none" stroke="#CFE3F5" stroke-width="0.4" stroke-linecap="round"/><path d="M269 82 A8 8 0 0 1 261 90" fill="none" stroke="#CFE3F5" stroke-width="0.4" stroke-linecap="round"/>` +
-      star(244, 70, 2.2) + star(270, 66, 1.6, '#F5B942') + star(266, 92, 1.4) + star(240, 86, 1.2, '#F5B942') +
-      orb(258, 80, { eyes: 'happy', mouth: 'grin', legs: 'tuck', rot: 18 })),
-    shot: 'Medium close; 4-frame freeze on contact, then cut to the celebration.',
-    action: 'The spark snaps back onto his antenna. Joy: happy eyes, a big grin, glowing cheeks, sparkles, and a spinning jump.',
-    anim: 'Contact freeze 4 frames. Full 360° spin jump over 18 frames, landing back on the point. Sparkles pop and fade over 12 frames.',
-    sound: '4 frames of silence, a bright "click", then the full chord.' },
-  { n: 11, act: 'Reveal', f: [400, 463], key: 'F_REVEAL', title: 'It was the logo all along', big: true,
-    art: cam(0.82, 195.5, 134, stage(0.25) + mark({ ring: 0.72, inner: 0.4, v: 0.55, ground: 0.6, white: false }) +
-      `<path d="M190 236 L190 226 M186 230 L190 226 L194 230" stroke="#CFE3F5" stroke-width="1" fill="none" stroke-linecap="round"/>` +
-      orb(258, 87, { eyes: 'happy', mouth: 'smile', scale: 1.4 }) +
-      label(60, 72, 'C ring draws over the top', '#93A6B8', 6) + label(158, 250, 'V + groundline rise', '#93A6B8', 6)),
-    shot: 'Fast pull-back on one ease-out; camera ends centred on the mark.',
-    action: 'The camera pulls back. The C ring draws round the chart, the gap staying open where the breakout passes through. The V and groundline rise up from below.',
-    anim: 'Pull-back 30 frames. Ring draws over 24 frames from the gap\'s top end. Bars shift blue → white. V and groundline rise 20 frames, staggered 4f.',
-    sound: 'Big riser, resolving as the ring closes.' },
-  { n: 12, act: 'Title', f: [464, 491], key: 'F_MELT', title: 'Melt into the mark',
-    art: cam(0.82, 195.5, 134, mark() + `<circle cx="258" cy="87" r="16" fill="url(#iceGlow)"/>` +
-      orb(258, 87, { glow: true, eyes: 'happy', mouth: 'smile', antenna: 'none', scale: 1.4, sy: 0.45, sx: 1.35 }) + star(270, 74, 4) + star(248, 70, 2.6, '#F5B942')),
-    shot: 'Locked off, front-on.',
-    action: 'Orb glows white and folds himself down into the breakout point. The scene resolves into the clean mark.',
-    anim: 'Squash down 14 frames into the point, then a last sparkle on the point, like a wink. Floor fades out.',
-    sound: 'Soft, warm "shoop", then one ping on the sparkle.' },
-  { n: 13, act: 'Title', f: [492, 560], key: 'F_TITLE', title: 'Title',
+    shot: 'Medium; low angle up the amber bar.',
+    action: 'The spark draws the steep last stretch of the line, leaves a glowing dot where it ends, and hovers just beyond. Orb jumps for it from the top bar and falls short.',
+    anim: 'Straight-up jump, 16 frames, 3-frame hang at the apex, heavy squash on landing. The spark bobs, teasing.',
+    sound: 'Jump "boing", then a deflating "wah".' },
+  { n: 6, act: 'Turn', f: [187, 216], title: 'Psych up',
+    art: cam(3.2, 234, 96, stage() + bars() + trail(FULL, 1, true) + spark(278, 76) + speed(278, 76, 7, 200) +
+      orb(213, 106, { antenna: 'gone', brows: 'determined', mouth: 'flat', legs: 'crouch', sx: 1.12, sy: 0.84, look: [1, -0.8] }) +
+      label(252, 72, 'drifting away', 2.6)),
+    shot: 'Medium close on Orb; the spark soft in the background.',
+    action: 'The spark starts drifting off into empty space. Orb backs up to the edge of the bar, squints, brows down, and crouches.',
+    anim: 'Two steps back, 6 frames each. Deep crouch over 10 frames, a held breath, a tiny shiver.',
+    sound: 'Music thins to one held note.' },
+  { n: 7, act: 'Climax', f: [217, 240], title: 'Leap of faith', big: true,
+    art: cam(3, 240, 94, stage(0.7) + bars() + trail(FULL, 1, true) + spark(276, 78) +
+      `<path d="M211 106 Q240 62 272 82" fill="none" stroke="#93A6B8" stroke-width="0.45" stroke-dasharray="1 1.2"/>` +
+      orb(211, 106, { ghost: true }) + orb(240, 86, { antenna: 'gone', eyes: 'wide', mouth: 'o', brows: 'worried', legs: 'tuck', rot: 25 }) + speed(233, 92, 8, 160)),
+    shot: 'Side-on, slow motion; the camera rises with the arc.',
+    action: 'Orb launches off the top bar into empty space, way past the end of the chart.',
+    anim: 'One long parabola, 22 frames, at half speed in the middle. Body stretched on take-off, then tucked.',
+    sound: 'Everything drops out except his breath.' },
+  { n: 8, act: 'Climax', f: [241, 252], title: 'Caught it!', big: true,
+    art: cam(3.2, 258, 86, stage(0.6) + bars() + trail(FULL, 0.9, true) + catchOrb + spark(...catchTip, 9) +
+      star(catchTip[0] + 6, catchTip[1] - 4, 2.2) + star(catchTip[0] - 7, catchTip[1] - 3, 1.5, '#F5B942') + star(catchTip[0] + 3, catchTip[1] + 7, 1.3)),
+    shot: 'Medium close; 4-frame freeze on contact.',
+    action: 'His stalk snaps into the spark mid-air. For one frozen beat it looks like a win. Then the spark keeps going, and Orb is still attached.',
+    anim: 'Freeze 4 frames on contact, then the antenna whips taut as the spark pulls. Orb\'s eyes go from relief to "uh-oh" in 3 frames.',
+    sound: 'A bright "click", 4 frames of silence, then a rising whoosh.' },
+  { n: 9, act: 'Climax', f: [253, 300], title: 'The loop', big: true,
+    art: cam(1.35, 190, 112, stage(0.5) + bars() + trail(FULL, 0.9, true) +
+      `<path d="M236 84 A56 56 0 1 0 236 146" fill="none" stroke="#93A6B8" stroke-width="0.6" stroke-dasharray="1.2 2" />` +
+      ringTrail(0.48) + loopOrb + spark(...loopTip, 9) + speed(...onRing(-160), 9, -70) +
+      label(214, 70, 'loop trail', 4.5) + label(118, 192, 'gap stays open', 4.5)),
+    shot: 'Wide; the camera pulls back so the whole loop fits.',
+    action: 'The spark yanks Orb up and round in a full loop over the chart, from the top of the gap, over the top and down the far side. Their trail draws a white ring around the bars.',
+    anim: 'One loop in 44 frames, fastest at the bottom. Orb trails on a stretched antenna and spins with the path. Terrified at the top, grinning by the bottom.',
+    sound: 'Whoosh rising and falling with the loop; Orb\'s "wheee" at the top.' },
+  { n: 10, act: 'Payoff', f: [301, 324], title: 'Slingshot',
+    art: cam(1.05, 195, 134, stage(0.25) + bars() + trail(FULL, 0.9, true) + ringTrail(1, 5, false) +
+      `<path d="M236 146 Q246 160 252 176" fill="none" stroke="#93A6B8" stroke-width="0.7" stroke-dasharray="1.4 1.6"/>` +
+      flingOrb + speed(246, 168, 12, 235) + label(242, 140, 'out through the gap', 5)),
+    shot: 'Wide, locked; Orb tumbles out of the bottom right.',
+    action: 'The loop closes just short of where it started, leaving the gap. Out of the bottom of the gap, Orb is flung clear. The spark stays on his antenna, now a small bud. The floor dissolves and the ring thickens into the C.',
+    anim: 'Fling 8 frames, tumble 2 spins. Floor fades to black over 14 frames. Ring stroke grows from trail to logo weight.',
+    sound: 'Rubber-band twang, then cartoon tumble thumps.' },
+  { n: 11, act: 'Payoff', f: [325, 372], title: 'He stands it up', big: true,
+    art: cam(0.85, 195.5, 136, mark({ v: 1, ground: 1, white: true }) +
+      orb(212, 218, { eyes: 'happy', mouth: 'grin', antenna: 'bud', scale: 1.6, rot: -6 }) + star(230, 192, 4) + star(202, 188, 2.6, '#F5B942') +
+      `<path d="M150 236 L150 226 M146 230 L150 226 L154 230 M230 236 L230 226 M226 230 L230 226 L234 230" stroke="#CFE3F5" stroke-width="1" fill="none" stroke-linecap="round"/>`),
+    shot: 'Wide, centred on the mark.',
+    action: 'Orb lands on a line rising out of the dark, the groundline, and the V rises with it to hold the ball up. The bars turn white, the last one stays amber. Orb looks up at what he made and grins.',
+    anim: 'V and groundline rise 16 frames with a soft overshoot. Bars blue → white in a left-to-right wipe. Dizzy eyes for 8 frames, then the big grin; his spark grows back to full size.',
+    sound: 'A deep "thoom" as the stand locks in, then a happy chirp.' },
+  { n: 12, act: 'Title', f: [373, 450], title: 'Title',
     art: '<g id="lockup-slot"></g>' + `<text x="160" y="164" text-anchor="middle" fill="#CFE3F5" style="font-family:'IBM Plex Sans',sans-serif;font-size:7px;letter-spacing:0.4px">We don't chase the number. We see where it's going.</text>`,
     bg: '#16202B',
     shot: 'Held; fade to black over the last 15 frames.',
-    action: 'The official stacked lockup, dark variant. The tagline fades in under the wordmark.',
-    anim: 'Wordmark fades up 10 frames after the melt. Tagline 12 frames later. Hold to frame 545, fade out.',
-    sound: 'Chord tail; silence on the fade.' },
+    action: 'Orb hops out of frame right with a wave of his antenna. The wordmark rises in under the mark, then the tagline. The official stacked lockup holds.',
+    anim: 'Orb exits in two hops, 12 frames. Wordmark rises 12 frames. Tagline fades in 10 frames later. Hold, then fade.',
+    sound: 'One warm chord; a last ping from off-screen as Orb leaves.' },
 ];
 
 const tc = f => { const s = (f - 1) / 30; return `${Math.floor(s)}:${String(Math.round((s % 1) * 30)).padStart(2, '0')}`; };
@@ -402,12 +432,12 @@ document.getElementById('board').innerHTML = F.map(k => `
       <span class="p-tc">F${String(k.f[0]).padStart(3, '0')}–${String(k.f[1]).padStart(3, '0')} · ${tc(k.f[0])} · ${k.f[1] - k.f[0] + 1}f</span></div>
     ${frame(k.art, `Keyframe ${k.n}: ${k.title}`, k.bg)}
     ${k.big ? '<span class="tag">Climax / transition beat</span>' : ''}
-    <dl class="notes"><dt>Shot</dt><dd>${k.shot}</dd><dt>Action</dt><dd>${k.action}</dd><dt>Animation</dt><dd>${k.anim}</dd><dt>Sound</dt><dd>${k.sound}</dd><dt>Script</dt><dd><code>${k.key}</code></dd></dl>
+    <dl class="notes"><dt>Shot</dt><dd>${k.shot}</dd><dt>Action</dt><dd>${k.action}</dd><dt>Animation</dt><dd>${k.anim}</dd><dt>Sound</dt><dd>${k.sound}</dd></dl>
   </article>`).join('');
 
-// official stacked lockup (dark) dropped into panel 13 untouched
+// official stacked lockup (dark), untouched
 const lock = document.getElementById('lockup').innerHTML.trim();
-const slot = document.querySelector('#k13 #lockup-slot');
+const slot = document.querySelector('#k12 #lockup-slot');
 if (slot && lock) slot.outerHTML = lock.replace('<svg ', '<svg x="98" y="12" width="124" height="126" ');
 
 document.getElementById('tlbar').innerHTML = F.map(k =>
